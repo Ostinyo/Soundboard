@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Soundboard</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_add_button">Add Button</string>
+
+    <string name="menu_load">Load Board</string>
+    <string name="menu_save">Save Board</string>
+
+    <string name="button_title">Edit Button</string>
+    <string name="button_name">Name: </string>
+    <string name="button_color">Color: </string>
+    <string name="button_sound">Sound: </string>
+    <string name="button_change">Change Sound</string>
+    <string name="button_record">Record New Sound</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+</resources>

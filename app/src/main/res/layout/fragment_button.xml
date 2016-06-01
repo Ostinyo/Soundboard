@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/button_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_title"
+        android:textSize="@dimen/text_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/fab_margin" />
+
+    <TextView
+        android:id="@+id/button_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_name"
+        android:textSize="@dimen/text_title"
+        android:gravity="bottom"
+        android:layout_alignBottom="@+id/button_name_edit"
+        android:layout_below="@+id/button_title"
+        android:paddingRight="@dimen/fab_margin" />
+    <EditText
+        android:id="@+id/button_name_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Filler Name Text"
+        android:textSize="@dimen/text_field"
+        android:gravity="bottom"
+        android:layout_below="@+id/button_title"
+        android:layout_toEndOf="@+id/button_name"
+        android:layout_toRightOf="@+id/button_name" />
+
+    <TextView
+        android:id="@+id/button_sound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_sound"
+        android:textSize="@dimen/text_title"
+        android:gravity="bottom"
+        android:layout_below="@+id/button_name"
+        android:layout_alignBottom="@+id/button_sound_edit"
+        android:paddingRight="@dimen/fab_margin"
+        android:paddingBottom="8dp" />
+    <Button
+        android:id="@+id/button_sound_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/button_name"
+        android:text="explosion.wav"
+        android:textSize="@dimen/text_field"
+        android:textAllCaps="false"
+        android:gravity="bottom"
+        android:layout_toRightOf="@+id/button_sound"
+        android:layout_below="@+id/button_name_edit" />
+
+    <TextView
+        android:id="@+id/button_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/button_color"
+        android:textSize="@dimen/text_title"
+        android:layout_below="@+id/button_sound_edit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingRight="@dimen/fab_margin"
+        android:paddingBottom="@dimen/fab_margin" />
+
+    <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_cancel"
+        android:layout_below="@+id/button_color"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_save"
+        android:layout_alignTop="@+id/button_cancel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
