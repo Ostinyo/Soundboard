@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ucsb.cs185.austintisor.soundboard">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +23,12 @@
         <activity
             android:name=".NewButtonActivity"
             android:label="@string/action_add_button"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".AudioRecordActivity"
+            android:label="AudioRecord"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>

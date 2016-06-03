@@ -1,6 +1,11 @@
 package edu.ucsb.cs185.austintisor.soundboard;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +21,9 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private static final int PERMISSIONS_REQUEST = 2;
 
     private EditText buttonName;
     private Button buttonSound;
@@ -39,6 +47,17 @@ public class MainActivity extends AppCompatActivity
 
         buttonName = (EditText)findViewById(R.id.button_name_edit);
         buttonSound = (Button)findViewById(R.id.button_sound_edit);
+
+        askPermissions();
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void askPermissions(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED  ) {
+            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERMISSIONS_REQUEST);
+        }
+
     }
 
     @Override
