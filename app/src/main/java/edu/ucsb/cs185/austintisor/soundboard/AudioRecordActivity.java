@@ -4,6 +4,8 @@ package edu.ucsb.cs185.austintisor.soundboard;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
@@ -113,10 +115,10 @@ public class AudioRecordActivity extends Activity
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
                     setNextFilename();
-                    setText("RECORDING!!");
+                    setText(R.string.recorder_recording);
                     onRecord(true);
                 } else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
-                    setText("Hold to Record");
+                    setText(R.string.recorder_record);
                     mPlayButton.setEnabled(true);
                     onRecord(false);
                 }
@@ -127,7 +129,7 @@ public class AudioRecordActivity extends Activity
 
         public RecordButton(Context ctx) {
             super(ctx);
-            setText("Hold to Record");
+            setText(R.string.recorder_record);
             setOnTouchListener(clicker);
         }
     }
@@ -143,7 +145,7 @@ public class AudioRecordActivity extends Activity
 
         public PlayButton(Context ctx) {
             super(ctx);
-            setText("Start playing");
+            setText(R.string.recorder_play);
             setOnClickListener(clicker);
         }
     }
@@ -161,7 +163,7 @@ public class AudioRecordActivity extends Activity
 
         public DoneButton(Context ctx){
             super(ctx);
-            setText("Done");
+            setText(R.string.recorder_done);
             setOnClickListener(clicker);
         }
     }
@@ -184,6 +186,7 @@ public class AudioRecordActivity extends Activity
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        //setContentView(R.layout.activity_audio_record); // We'll probably want to use an xml layout in the future
 
         mRecorder = new MediaRecorder();
 
@@ -221,5 +224,19 @@ public class AudioRecordActivity extends Activity
             mPlayer.release();
             mPlayer = null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mRecorder != null)
+            mRecorder.release();
+        if (mPlayer != null)
+            mPlayer.release();
+
+        Intent intent = new Intent();
+        //intent.putExtra(NewButtonActivity.STRING_EXTRA, mFileName);
+        setResult(RESULT_CANCELED, intent);
+        finish();
+        super.onBackPressed();
     }
 }

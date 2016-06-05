@@ -11,6 +11,12 @@
     <string name="menu_load">Load Board</string>
     <string name="menu_save">Save Board</string>
 
+    <string name="recorder_record">Hold to Record</string>
+    <string name="recorder_recording">Recording Sound!</string>
+    <string name="recorder_play">Listen to Sound</string>
+    <string name="recorder_done">Done</string>
+    <string name="recorder_cancel">Cancel</string>
+
     <string name="button_title">Edit Button</string>
     <string name="button_name">Name: </string>
     <string name="button_color">Color: </string>

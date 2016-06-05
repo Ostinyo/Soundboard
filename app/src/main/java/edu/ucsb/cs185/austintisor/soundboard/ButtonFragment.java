@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.DialogFragment;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Button;
 
 public class ButtonFragment extends DialogFragment {
 
@@ -30,6 +31,7 @@ public class ButtonFragment extends DialogFragment {
 
         //Get any Views you need (Any local variables accessed from inside an anonymous inner class must be final)
         final EditText nameEdit = (EditText) contentView.findViewById(R.id.button_name_edit);
+        final Button soundEdit = (Button) contentView.findViewById(R.id.button_sound_edit);
 
         //Pass your data to the builder (these can be chained)
         builder.setView(contentView)
@@ -37,7 +39,7 @@ public class ButtonFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String name = nameEdit.getText().toString();
-                        String file = "sound.wav"; //temp
+                        String file = soundEdit.getText().toString();
                         int color = 0; //temp
                         listener.onButtonSet(name, file, color);
                     }
