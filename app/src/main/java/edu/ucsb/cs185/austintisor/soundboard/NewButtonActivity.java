@@ -4,6 +4,7 @@ package edu.ucsb.cs185.austintisor.soundboard;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Environment;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -15,9 +16,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.util.Log;
 
 public class NewButtonActivity extends AppCompatActivity {
-    private static final int ACTIVITY_RECORD_SOUND = 1;
+    private static final int ACTIVITY_RECORD_SOUND = 1, SELECT_SOUND = 2;
     public static final String STRING_EXTRA = "filename";
     private String mFilename;
     Uri savedUri;
@@ -42,10 +44,11 @@ public class NewButtonActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == ACTIVITY_RECORD_SOUND){
-            mFilename = data.getStringExtra(STRING_EXTRA);
+        switch (requestCode) {
+            case ACTIVITY_RECORD_SOUND:
+                mFilename = data.getStringExtra(STRING_EXTRA);
 
-            // Example code on how to play the sound.
+                // Example code on how to play the sound.
             /*
             try {
                 MediaPlayer mPlayer = new MediaPlayer();
@@ -56,7 +59,16 @@ public class NewButtonActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             */
+            case SELECT_SOUND:
+                //mFilename = data.getData().getPath();
         }
+        Log.d("Filename", mFilename);
+    }
+
+    public void browseFileSystem (View v) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("file/*");
+        startActivityForResult(intent, SELECT_SOUND);
     }
 }
 
