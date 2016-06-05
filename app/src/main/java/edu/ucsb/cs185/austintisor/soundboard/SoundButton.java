@@ -34,15 +34,17 @@ public class SoundButton extends Button implements OnClickListener {
 
     @Override
     public void onClick (View v) {
-        // Create a button dialogue fragment with this button's values
+        // Play the sound (if already playing start it again)
+        playSound();
     }
 
     public void setFile (String file) {
         soundFile = file;
         try {
             mediaPlayer.setDataSource(file);
+            mediaPlayer.prepare();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 

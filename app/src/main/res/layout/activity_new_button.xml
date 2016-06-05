@@ -17,5 +17,6 @@
         android:text="@string/button_browse"
         android:id="@+id/button"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/fab_margin" />
+        android:layout_marginTop="@dimen/fab_margin"
+        android:onClick="browseFileSystem" />
 </LinearLayout>

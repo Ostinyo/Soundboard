@@ -46,23 +46,20 @@ public class NewButtonActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case ACTIVITY_RECORD_SOUND:
-                mFilename = data.getStringExtra(STRING_EXTRA);
+                if (resultCode == RESULT_OK)
+                    mFilename = data.getStringExtra(STRING_EXTRA);
 
-                // Example code on how to play the sound.
-            /*
-            try {
-                MediaPlayer mPlayer = new MediaPlayer();
-                mPlayer.setDataSource(mFilename);
-                mPlayer.prepare();
-                mPlayer.start();
-            }catch(Exception e){//assume no recording was made
-                e.printStackTrace();
-            }
-            */
+
+
             case SELECT_SOUND:
-                //mFilename = data.getData().getPath();
+                if (resultCode == RESULT_OK) {
+                    mFilename = data.getData().getPath();
+                    Log.d("Select sound", "SELECTED");
+                    Log.d("Filename result", mFilename);
+                }
+                else if (resultCode == RESULT_CANCELED)
+                    Log.d("Select sound", "CANCELED");
         }
-        Log.d("Filename", mFilename);
     }
 
     public void browseFileSystem (View v) {
