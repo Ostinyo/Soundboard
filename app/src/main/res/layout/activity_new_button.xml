@@ -10,4 +10,12 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/record"
         android:background="?attr/selectableItemBackgroundBorderless" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_browse"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/fab_margin" />
 </LinearLayout>

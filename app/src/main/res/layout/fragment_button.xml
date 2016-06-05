@@ -27,7 +27,7 @@
         android:id="@+id/button_name_edit"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Filler Name Text"
+        android:text=""
         android:textSize="@dimen/text_field"
         android:gravity="bottom"
         android:layout_below="@+id/button_title"
