@@ -28,4 +28,6 @@
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
     <string name="default_board">Default Sound Board</string>
+
+    <string name="save_hint_text">Enter Save File Name</string>
 </resources>

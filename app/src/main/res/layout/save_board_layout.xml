@@ -10,12 +10,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/saveBoard"
         android:text="Save Current Board"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/boardNamePrompt"
+        android:hint="@string/save_hint_text"
+        android:textColorHint="@color/colorHint"
+        android:background="@drawable/edit_text_style"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight=".05"
         />
 
 </LinearLayout>

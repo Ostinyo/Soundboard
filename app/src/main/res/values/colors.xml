@@ -9,4 +9,5 @@
     <color name="colorAccent">#CF1D76</color>
 
     <color name="colorBackground">#333333</color>
+    <color name="colorHint">#CCCCCC</color>
 </resources>
