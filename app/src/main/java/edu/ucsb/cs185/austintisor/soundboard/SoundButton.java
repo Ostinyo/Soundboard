@@ -5,10 +5,12 @@ import android.util.AttributeSet;
 import android.widget.Button;
 import android.media.MediaPlayer;
 import android.graphics.Color;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import java.io.IOException;
 
-public class SoundButton extends Button {
+public class SoundButton extends Button implements OnClickListener {
 
     private String name;
     private int color;
@@ -18,12 +20,21 @@ public class SoundButton extends Button {
 
     public SoundButton (Context context) {
         super(context);
-        mediaPlayer = new MediaPlayer();
+        init();
     }
 
     public SoundButton (Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
+    }
+
+    public void init () {
         mediaPlayer = new MediaPlayer();
+    }
+
+    @Override
+    public void onClick (View v) {
+        // Create a button dialogue fragment with this button's values
     }
 
     public void setFile (String file) {
