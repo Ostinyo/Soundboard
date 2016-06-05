@@ -14,14 +14,10 @@
     tools:showIn="@layout/app_bar_main">
 
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/default_board"
-        android:textSize="48sp"
-
-        />
-
+        android:textSize="48sp" />
 
     <GridView
         android:id="@+id/boardGrid"

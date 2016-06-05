@@ -2,7 +2,6 @@ package edu.ucsb.cs185.austintisor.soundboard;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -19,13 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +31,6 @@ public class MainActivity extends AppCompatActivity
     List<Integer> boardSounds = new ArrayList<>();
     ImageAdapter myAdapter = new ImageAdapter(this);
     private static final int PERMISSIONS_REQUEST = 2;
-
-    private EditText buttonName;
-    private Button buttonSound;
-    private Button buttonColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +49,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        buttonName = (EditText)findViewById(R.id.button_name_edit);
-        buttonSound = (Button)findViewById(R.id.button_sound_edit);
-
-        final GridView gridView = (GridView) findViewById(R.id.boardGrid);
-        gridView.setAdapter(myAdapter);
+        //final GridView gridView = (GridView) findViewById(R.id.boardGrid);
+        //gridView.setAdapter(myAdapter);
         askPermissions();
 
-        gridView.setOnTouchListener(new AdapterView.OnTouchListener() {
+        /*gridView.setOnTouchListener(new AdapterView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getActionMasked();
@@ -88,7 +75,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 return true;
             }
-        });
+        });*/
     }
 
     public void initializeDefaultBoard(){
@@ -109,7 +96,6 @@ public class MainActivity extends AppCompatActivity
             requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSIONS_REQUEST);
         }
-
     }
 
     @Override
@@ -178,50 +164,5 @@ public class MainActivity extends AppCompatActivity
 
         //Show the fragment
         buttonFragment.show(getFragmentManager(), "edit_button");
-    }
-    public class ImageAdapter extends BaseAdapter {
-
-        private Context context;
-        List<Integer> imageIDs = new ArrayList<>();
-
-        public ImageAdapter(Context c){
-            context=c;
-            for(int i=0; i<9; i++) {
-                imageIDs.add(R.drawable.grid_button);
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return imageIDs.size();
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
-            if(convertView==null){
-                imageView = new ImageView(context);
-                imageView.setLayoutParams(new GridView.LayoutParams(200,200));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(5, 5, 5, 5);
-            }
-            else{
-                imageView = (ImageView) convertView;
-            }
-            imageView.setImageResource(imageIDs.get(position));
-            return imageView;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return imageIDs.get(position);
-        }
-
-
     }
 }
