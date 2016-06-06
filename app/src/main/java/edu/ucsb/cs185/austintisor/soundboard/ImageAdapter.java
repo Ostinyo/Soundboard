@@ -52,14 +52,6 @@ public class ImageAdapter extends BaseAdapter {
         final SoundButton soundButton = new SoundButton(context);
         soundButton.setLayoutParams(new GridView.LayoutParams(250,250)); // Change to size preference
         soundButton.setPadding(5, 5, 5, 5);
-
-        soundButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                soundButton.playSound();
-            }
-        });
-
         return soundButton;
     }
 

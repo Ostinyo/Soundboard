@@ -34,12 +34,14 @@ public class SoundButton extends Button implements OnClickListener {
 
     public void init (Context context) {
         c = context;
+        setOnClickListener(this);
         mediaPlayer = MediaPlayer.create(context, R.raw.drum1); // Temporarily set to drum1
     }
 
     @Override
     public void onClick (View v) {
         // Play the sound (if already playing start it again)
+        Log.d("Button ","BUTTON!");
         playSound();
     }
 
@@ -66,21 +68,22 @@ public class SoundButton extends Button implements OnClickListener {
     }*/
 
     public void playSound () {
-        // Fix the scenario when the button is pressed while playing sound
-        /*if (mediaPlayer.isPlaying()) {
-            stopSound();
-            mediaPlayer.reset();
-            try {
-                mediaPlayer.setDataSource(c, soundURI);
-                mediaPlayer.prepare();
-            } catch (IOException e) { }
-        }*/
-        mediaPlayer.start();
+        mediaPlayer.release();
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(soundFile);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+        }
+
     }
 
     public void stopSound () {
-        mediaPlayer.stop();
+        if(mediaPlayer.isPlaying())
+            mediaPlayer.stop();
     }
+
 
     public void setColor (int c) {
         color = c;
