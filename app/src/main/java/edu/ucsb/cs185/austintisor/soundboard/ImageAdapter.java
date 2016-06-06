@@ -25,7 +25,28 @@ public class ImageAdapter extends BaseAdapter {
         for(int i = 0; i < 9; i++) {
             buttonFiles.add("filename");
             buttonNames.add(""); // Replace with board loading
-            buttonColors.add(Color.BLUE); //(context.getResources().getColor(R.color.default1));
+            switch (i) {
+                case 0:
+                    buttonColors.add(Color.BLUE); //(context.getResources().getColor(R.color.default1));
+                case 1:
+                    buttonColors.add(Color.DKGRAY);
+                case 2:
+                    buttonColors.add(Color.YELLOW);
+                case 3:
+                    buttonColors.add(Color.GREEN);
+                case 4:
+                    buttonColors.add(Color.MAGENTA);
+                case 5:
+                    buttonColors.add(Color.BLACK);
+                case 6:
+                    buttonColors.add(Color.RED);
+                case 7:
+                    buttonColors.add(Color.CYAN);
+                case 8:
+                    buttonColors.add(Color.WHITE);
+                case 9:
+                    buttonColors.add(Color.GREEN);
+            }
         }
     }
 

@@ -57,7 +57,7 @@ public class NewButtonActivity extends AppCompatActivity {
     private static final String LOG_TAG = "NewButtonActivity";
     private static final int TINT_COLOR = Color.argb(120, 0, 0, 255);
     private static final int NO_COLOR = Color.argb(0, 0, 0, 0);
-    public static final int DEFAULT_COLOR = Color.BLUE;
+    public static final int DEFAULT_COLOR = Color.RED;
 
     private int mColor = DEFAULT_COLOR;
 

@@ -22,6 +22,7 @@ public class SoundButton extends Button implements OnClickListener {
     private int index, color;
 
     private String soundFile;
+    private int rawSound = R.raw.drum1;
     private Uri soundUri;
     private MediaPlayer mediaPlayer;
     private boolean editing = false;
@@ -39,7 +40,7 @@ public class SoundButton extends Button implements OnClickListener {
     public void init (Context context) {
         c = context;
         setOnClickListener(this);
-        mediaPlayer = MediaPlayer.create(context, R.raw.drum1); // Temporarily set to drum1
+        mediaPlayer = MediaPlayer.create(context, rawSound); // Temporarily set to drum1
     }
 
     @Override
@@ -72,19 +73,9 @@ public class SoundButton extends Button implements OnClickListener {
         Log.d("File set to", file);
     }
 
-    /*
-    public void setUri (Uri uri) {
-        soundUri = uri;
-        try {
-            mediaPlayer.reset();
-            mediaPlayer.setDataSource(c, soundUri);
-            mediaPlayer.prepare();
-        } catch (IOException e) { }
-    }*/
-
     public void playSound () {
         mediaPlayer.release();
-        mediaPlayer = new MediaPlayer();
+        mediaPlayer = MediaPlayer.create(c, rawSound);
         try {
             mediaPlayer.setDataSource(soundFile);
             mediaPlayer.prepare();
