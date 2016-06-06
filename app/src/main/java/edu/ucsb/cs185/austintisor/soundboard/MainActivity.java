@@ -32,7 +32,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ImageAdapter myAdapter;
+    private ImageAdapter mAdapter;
     private static final int PERMISSIONS_REQUEST = 2;
     private static final int NEW_BUTTON_INTENT = 3;
     private static final int SELECT_BOARD = 4;
@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity
         askPermissions();
 
         final GridView gridView = (GridView) findViewById(R.id.boardGrid);
-        myAdapter = new ImageAdapter(this);
-        gridView.setAdapter(myAdapter);
+        mAdapter = new ImageAdapter(this);
+        gridView.setAdapter(mAdapter);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -130,19 +130,19 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.nav_new:
-                // Create a new board (future possibility)
-            case R.id.nav_clear:
-                // Clear the board
-                myAdapter.clear();
-            case R.id.nav_load:
-                // Launch load dialogue fragment/file system
-                browseFileSystem();
-            case R.id.nav_save:
-                // Launch save dialogue fragment
-                SaveBoardFragment saveBoardFragment = new SaveBoardFragment();
-                saveBoardFragment.show(getFragmentManager(), "save_board_fragment");
+        if (id == R.id.nav_new) {
+            // Create a new board (future possibility)
+            mAdapter.clear();
+        } else if (id == R.id.nav_clear) {
+            // Clear the board
+            mAdapter.clear();
+        } else if (id == R.id.nav_load) {
+            // Launch load dialogue fragment/file system
+            browseFileSystem();
+        } else if (id == R.id.nav_save) {
+            // Launch save dialogue fragment
+            SaveBoardFragment saveBoardFragment = new SaveBoardFragment();
+            saveBoardFragment.show(getFragmentManager(), "save_board_fragment");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity
                 String filename = data.getStringExtra(FILENAME_EXTRA);
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
                 String name = data.getStringExtra(NAME_EXTRA);
-                myAdapter.addButton(filename, name, color);
+                mAdapter.addButton(filename, name, color);
                 Log.d("Color", Integer.toString(color));
                 Log.d("Filename", filename);
                 Log.d("Name", name);

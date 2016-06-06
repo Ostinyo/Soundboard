@@ -55,13 +55,15 @@ public class SoundButton extends Button implements OnClickListener {
         Log.d("File set to", file);
     }
 
+    /*
     public void setUri (Uri uri) {
         soundUri = uri;
         try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(c, soundUri);
+            mediaPlayer.prepare();
         } catch (IOException e) { }
-    }
+    }*/
 
     public void playSound () {
         // Fix the scenario when the button is pressed while playing sound

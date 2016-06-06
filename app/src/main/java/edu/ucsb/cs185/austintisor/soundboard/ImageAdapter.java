@@ -1,6 +1,7 @@
 package edu.ucsb.cs185.austintisor.soundboard;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +24,13 @@ public class ImageAdapter extends BaseAdapter {
         for(int i = 0; i < 9; i++) {
             buttonFiles.add("filename");
             buttonNames.add(""); // Replace with board loading
-            buttonColors.add(context.getResources().getColor(R.color.default1));
+            buttonColors.add(Color.BLUE); //(context.getResources().getColor(R.color.default1));
         }
     }
 
     @Override
     public int getCount() {
-        return buttonNames.size();
+        return buttonFiles.size();
     }
 
     @Override
@@ -69,7 +70,7 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return buttonNames.get(position);
+        return buttonFiles.get(position);
     }
 
     public void addButton (String filename, String name, int color) {
