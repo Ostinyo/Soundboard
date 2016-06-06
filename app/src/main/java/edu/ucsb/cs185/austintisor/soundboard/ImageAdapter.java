@@ -69,4 +69,9 @@ public class ImageAdapter extends BaseAdapter {
         buttons.add(1); // Change to hold buttons instead
         notifyDataSetChanged();
     }
+
+    public void clear () {
+        buttons.clear();
+        notifyDataSetChanged();
+    }
 }

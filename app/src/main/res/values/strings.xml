@@ -11,6 +11,7 @@
     <string name="menu_new">New Board</string>
     <string name="menu_load">Load Board</string>
     <string name="menu_save">Save Board</string>
+    <string name="menu_clear">Clear Board</string>
 
     <string name="recorder_record">Hold to Record</string>
     <string name="recorder_recording">Recording Sound!</string>

@@ -128,12 +128,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_load) {
-            // Launch load dialogue fragment/file system
-        } else if (id == R.id.nav_save) {
-            // Launch save dialogue fragment
-            SaveBoardFragment saveBoardFragment = new SaveBoardFragment();
-            saveBoardFragment.show(getFragmentManager(), "save_board_fragment");
+        switch (id) {
+            case R.id.nav_load:
+                // Launch load dialogue fragment/file system
+            case R.id.nav_save:
+                // Launch save dialogue fragment
+                SaveBoardFragment saveBoardFragment = new SaveBoardFragment();
+                saveBoardFragment.show(getFragmentManager(), "save_board_fragment");
+            case R.id.nav_clear:
+                // Clear the board
+                myAdapter.clear();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
