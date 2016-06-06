@@ -73,11 +73,11 @@ public class ImageAdapter extends BaseAdapter {
         else if (position == 1)
             soundButton.setRawSound(R.raw.drum2);
         else if (position == 2)
-            soundButton.setRawSound(R.raw.drum3);
+            soundButton.setRawSound(R.raw.whistle);
         else if (position == 3)
             soundButton.setRawSound(R.raw.guitar1);
         else if (position == 4)
-            soundButton.setRawSound(R.raw.piano_melody1);
+            soundButton.setRawSound(R.raw.drum1);
         else if (position == 5)
             soundButton.setRawSound(R.raw.violin1);
         else if (position == 6)
