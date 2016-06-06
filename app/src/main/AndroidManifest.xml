@@ -24,7 +24,7 @@
             android:name=".NewButtonActivity"
             android:windowSoftInputMode="stateHidden"
             android:label="@string/action_add_button"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
 
         </activity>
         <activity
