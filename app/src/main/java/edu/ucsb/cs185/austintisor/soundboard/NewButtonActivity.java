@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.content.pm.PackageManager;
@@ -42,6 +43,7 @@ public class NewButtonActivity extends AppCompatActivity {
 
     private ImageButton   mPlayButton = null;
     private MediaPlayer   mPlayer = null;
+    private final int PLAY_TINT = Color.GREEN;
 
     private EditText mFilenameText;
 
@@ -60,6 +62,7 @@ public class NewButtonActivity extends AppCompatActivity {
 
         mPlayButton = (ImageButton) findViewById(R.id.new_button_play);
         mPlayButton.setOnClickListener(new PlayListener());
+        mPlayButton.setEnabled(false);
 
         mFilenameText = (EditText)findViewById(R.id.filename_text);
     }
@@ -67,17 +70,12 @@ public class NewButtonActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case ACTIVITY_RECORD_SOUND:
-                if (resultCode == RESULT_OK) {
-                    mFilename = data.getStringExtra(STRING_EXTRA);
-                    setFilenameText(mFilename);
-                }
 
             case SELECT_SOUND:
                 if (resultCode == RESULT_OK) {
                     mFilename = data.getData().getPath();
                     setFilenameText(mFilename);
-                    mPlayButton.setEnabled(true);
+                    activatePlay();
                     Log.d("Select sound", "SELECTED");
                     Log.d("Filename result", mFilename);
                 }
@@ -100,7 +98,7 @@ public class NewButtonActivity extends AppCompatActivity {
                     mRecordButton.setColorFilter(TINT_COLOR);
                     onRecord(true);
                 } else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
-                    mPlayButton.setEnabled(true);
+                    activatePlay();
                     mRecordButton.setColorFilter(NO_COLOR);
                     onRecord(false);
                 }
@@ -145,12 +143,12 @@ public class NewButtonActivity extends AppCompatActivity {
     }
 
     private void startPlaying() {
-        mPlayButton.setEnabled(false);
+        deactivatePlay();
         mPlayer = new MediaPlayer();
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                mPlayButton.setEnabled(true);
+                activatePlay();
             }
         });
 
@@ -193,12 +191,22 @@ public class NewButtonActivity extends AppCompatActivity {
             mRecorder = null;
         }catch(Exception ex){
             //No audio to play, so disable the play button
-            mPlayButton.setEnabled(false);
+            activatePlay();
         }
     }
 
     private void setFilenameText(String path){
         mFilenameText.setText(path.substring(path.lastIndexOf(File.separator)+1));
+    }
+
+    private void activatePlay(){
+        mPlayButton.setEnabled(true);
+        mPlayButton.setColorFilter(PLAY_TINT, PorterDuff.Mode.MULTIPLY);
+    }
+
+    private void deactivatePlay(){
+        mPlayButton.setEnabled(false);
+        mPlayButton.setColorFilter(getResources().getColor(R.color.colorBackground), PorterDuff.Mode.MULTIPLY);
     }
 
 }

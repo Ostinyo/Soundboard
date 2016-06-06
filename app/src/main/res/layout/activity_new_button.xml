@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    android:weightSum="1">
 
     <EditText
         android:layout_width="match_parent"
@@ -13,6 +14,12 @@
         android:longClickable="true"
         android:hint="filename" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight=".1" />
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,11 +28,18 @@
         android:src="@drawable/record"
         android:background="?attr/selectableItemBackgroundBorderless" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.25" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:weightSum="1">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -33,7 +47,15 @@
             android:id="@+id/new_button_play"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/fab_margin"
-            android:src="@drawable/ic_menu_play_clip" />
+            android:src="@drawable/ic_menu_play_clip"
+            android:tint="@color/colorBackground"
+            android:tintMode="multiply"
+            android:background="@color/colorHint" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".2" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -42,7 +64,10 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/fab_margin"
             android:src="@drawable/ic_menu_archive"
-            android:onClick="browseFileSystem" />
+            android:onClick="browseFileSystem"
+            android:tint="#ef8821"
+            android:tintMode="multiply"
+            android:background="@color/colorHint" />
     </LinearLayout>
 
     <Button
