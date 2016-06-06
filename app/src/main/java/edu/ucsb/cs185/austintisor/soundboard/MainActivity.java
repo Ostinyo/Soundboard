@@ -2,6 +2,7 @@ package edu.ucsb.cs185.austintisor.soundboard;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -124,6 +125,10 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.action_settings:
+                final Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.fragment_settings);
+                dialog.setTitle("Settings");
+                dialog.show();
                 return true;
             case R.id.action_add_button:
                 onNewButton();

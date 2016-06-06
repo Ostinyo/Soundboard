@@ -30,4 +30,8 @@
     <string name="default_board">Default Sound Board</string>
 
     <string name="save_hint_text">Enter Save File Name</string>
+    <string name="settings_text">Settings</string>
+    <string name="volume_text">Volume: </string>
+    <string name="brightness_text">Brightness: </string>
+    <string name="orientation_text">Lock Orientation: </string>
 </resources>
