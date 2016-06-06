@@ -35,5 +35,6 @@
     <string name="settings_text">Settings</string>
     <string name="volume_text">Volume: </string>
     <string name="brightness_text">Brightness: </string>
+    <string name="size_text">Button Size: </string>
     <string name="orientation_text">Lock Orientation: </string>
 </resources>

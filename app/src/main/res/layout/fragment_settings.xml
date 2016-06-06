@@ -10,34 +10,28 @@
         android:id="@+id/settingsText"
         android:textSize="30sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp" />
+        android:padding="@dimen/fab_margin" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/volume_text"
-        android:id="@+id/volumeText"
+        android:id="@+id/text_volume"
         android:textSize="20sp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/settingsText" />
+        android:layout_below="@+id/settingsText"
+        android:paddingBottom="5dp"
+        android:paddingLeft="@dimen/fab_margin" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/brightness_text"
-        android:id="@+id/brightnessText"
+        android:text="@string/size_text"
+        android:id="@+id/text_button_size"
         android:textSize="20sp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/volumeText" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/orientation_text"
-        android:id="@+id/orientationText"
-        android:textSize="20sp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/brightnessText" />
+        android:layout_below="@+id/text_volume"
+        android:paddingTop="5dp"
+        android:paddingLeft="@dimen/fab_margin"
+        android:paddingBottom="@dimen/fab_margin"/>
 
 
 </RelativeLayout>
