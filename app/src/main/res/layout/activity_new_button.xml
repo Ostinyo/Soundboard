@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/filename_text"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorHint"
+        android:longClickable="true"
+        android:hint="filename" />
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,24 +21,28 @@
         android:src="@drawable/record"
         android:background="?attr/selectableItemBackgroundBorderless" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Play"
-        android:id="@+id/new_button_play"
-        android:src="@drawable/ic_menu_play_clip"
-        android:layout_gravity="center_horizontal"
-        android:tint="@color/colorBackground"
-        android:background="@color/colorPrimary" />
+        android:gravity="center">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_browse"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:textAllCaps="false"
-        android:onClick="browseFileSystem" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_button_play"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:src="@drawable/ic_menu_play_clip" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:src="@drawable/ic_menu_archive"
+            android:onClick="browseFileSystem" />
+    </LinearLayout>
 
 </LinearLayout>

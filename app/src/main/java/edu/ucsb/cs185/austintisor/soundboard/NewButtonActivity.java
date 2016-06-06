@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.util.Log;
@@ -42,6 +43,8 @@ public class NewButtonActivity extends AppCompatActivity {
     private ImageButton   mPlayButton = null;
     private MediaPlayer   mPlayer = null;
 
+    private EditText mFilenameText;
+
     private static final String LOG_TAG = "NewButtonActivity";
     private static final int TINT_COLOR = Color.argb(120, 0, 0, 255);
     private static final int NO_COLOR = Color.argb(0, 0, 0, 0);
@@ -51,25 +54,30 @@ public class NewButtonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_new_button);
-        ImageButton b = (ImageButton)findViewById(R.id.imageButton);
 
         mRecordButton = (ImageButton) findViewById(R.id.imageButton);
         mRecordButton.setOnTouchListener(new RecordListener());
 
         mPlayButton = (ImageButton) findViewById(R.id.new_button_play);
         mPlayButton.setOnClickListener(new PlayListener());
+
+        mFilenameText = (EditText)findViewById(R.id.filename_text);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case ACTIVITY_RECORD_SOUND:
-                if (resultCode == RESULT_OK)
+                if (resultCode == RESULT_OK) {
                     mFilename = data.getStringExtra(STRING_EXTRA);
+                    setFilenameText(mFilename);
+                }
 
             case SELECT_SOUND:
                 if (resultCode == RESULT_OK) {
                     mFilename = data.getData().getPath();
+                    setFilenameText(mFilename);
+                    mPlayButton.setEnabled(true);
                     Log.d("Select sound", "SELECTED");
                     Log.d("Filename result", mFilename);
                 }
@@ -110,6 +118,7 @@ public class NewButtonActivity extends AppCompatActivity {
 
         Timestamp time = new Timestamp(System.currentTimeMillis());
         mFilename += File.separator + "sound_" + time.toString().replaceAll("\\W", "_") + ".3gp";
+        setFilenameText(mFilename);
     }
 
     class PlayListener implements View.OnClickListener {
@@ -186,6 +195,10 @@ public class NewButtonActivity extends AppCompatActivity {
             //No audio to play, so disable the play button
             mPlayButton.setEnabled(false);
         }
+    }
+
+    private void setFilenameText(String path){
+        mFilenameText.setText(path.substring(path.lastIndexOf(File.separator)+1));
     }
 
 }
