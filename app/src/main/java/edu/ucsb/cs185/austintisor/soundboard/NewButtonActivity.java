@@ -40,7 +40,7 @@ public class NewButtonActivity extends AppCompatActivity {
     Uri savedUri;
 
     private final String FOLDER = "Soundboard";
-    private static String mFilename = null;
+    private static String mFilename = null, mName = "";
 
     private ImageButton mRecordButton = null;
     private MediaRecorder mRecorder = null;
@@ -233,6 +233,7 @@ public class NewButtonActivity extends AppCompatActivity {
             saveFile();
             Intent intent = new Intent();
             intent.putExtra(MainActivity.FILENAME_EXTRA, mFilename);
+            intent.putExtra(MainActivity.NAME_EXTRA, mName);
             intent.putExtra(MainActivity.COLOR_EXTRA, mColor);
             setResult(RESULT_OK, intent);
             finish();

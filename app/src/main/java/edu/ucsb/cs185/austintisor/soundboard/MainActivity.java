@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -31,12 +32,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ImageAdapter myAdapter = new ImageAdapter(this);
+    private ImageAdapter myAdapter;
     private static final int PERMISSIONS_REQUEST = 2;
     private static final int NEW_BUTTON_INTENT = 3;
     private static final int SELECT_BOARD = 4;
-    public static final String FILENAME_EXTRA = "filename";
-    public static final String COLOR_EXTRA = "color";
+    public static final String FILENAME_EXTRA = "filename", NAME_EXTRA = "name", COLOR_EXTRA = "color";
 
     private boolean editing = false;
 
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
         askPermissions();
 
         final GridView gridView = (GridView) findViewById(R.id.boardGrid);
+        myAdapter = new ImageAdapter(this);
         gridView.setAdapter(myAdapter);
     }
 
@@ -179,7 +180,11 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK){
                 String filename = data.getStringExtra(FILENAME_EXTRA);
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
-                myAdapter.addButton(filename, color);
+                String name = data.getStringExtra(NAME_EXTRA);
+                myAdapter.addButton(filename, name, color);
+                Log.d("Color", Integer.toString(color));
+                Log.d("Filename", filename);
+                Log.d("Name", name);
             }
         }
     }
