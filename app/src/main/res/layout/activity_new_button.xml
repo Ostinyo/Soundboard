@@ -84,14 +84,25 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right">
+            android:gravity="right"
+            android:weightSum="1">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="@string/button_color_select_text"
+                android:id="@+id/button_color_select"
+                android:onClick="selectColor"
+                android:textColor="#ffffff"
+                android:layout_weight="1" />
 
             <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:id="@+id/new_button_done"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_menu_forward" />
+
         </LinearLayout>
     </LinearLayout>
 

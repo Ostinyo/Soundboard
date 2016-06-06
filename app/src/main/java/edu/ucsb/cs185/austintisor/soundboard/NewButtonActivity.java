@@ -27,6 +27,9 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.util.Log;
 
+import org.xdty.preference.colorpicker.ColorPickerDialog;
+import org.xdty.preference.colorpicker.ColorPickerSwatch;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -47,6 +50,7 @@ public class NewButtonActivity extends AppCompatActivity {
     private final int PLAY_TINT = Color.GREEN;
 
     private ImageButton mDoneButton;
+    private Button mColorSelectButton;
 
     private EditText mFilenameText;
 
@@ -77,6 +81,9 @@ public class NewButtonActivity extends AppCompatActivity {
             }
         });
 
+        mColorSelectButton = (Button)findViewById(R.id.button_color_select);
+        mColorSelectButton.setBackgroundColor(DEFAULT_COLOR);
+
         mFilenameText = (EditText)findViewById(R.id.filename_text);
     }
 
@@ -101,13 +108,6 @@ public class NewButtonActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("file/*");
         startActivityForResult(intent, SELECT_SOUND);
-    }
-
-    // Method for use sound button
-    public void setSound (View v) {
-        if (savedUri != null) {
-
-        }
     }
 
     class RecordListener implements View.OnTouchListener {
@@ -234,6 +234,24 @@ public class NewButtonActivity extends AppCompatActivity {
         intent.putExtra(MainActivity.COLOR_EXTRA, mColor);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    //Credit: https://github.com/xdtianyu/ColorPicker
+    public void selectColor(View view){
+        int[] colorArray = {Color.BLACK, Color.DKGRAY, Color.GRAY, Color.LTGRAY, Color.RED,  Color.YELLOW, Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA};
+        ColorPickerDialog colors = ColorPickerDialog.newInstance(R.string.color_picker,
+                colorArray,
+                mColor,
+                4,
+                ColorPickerDialog.SIZE_LARGE);
+        colors.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
+            @Override
+            public void onColorSelected(int color) {
+                mColor = color;
+                mColorSelectButton.setBackgroundColor(mColor);
+            }
+        });
+        colors.show(getFragmentManager(), "color picker");
     }
 
 }

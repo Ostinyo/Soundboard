@@ -24,6 +24,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
+    compile 'org.xdty.preference:color-picker:0.0.4'
     compile ('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.9.1@aar'){
         transitive=true
     }

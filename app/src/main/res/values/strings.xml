@@ -37,4 +37,7 @@
     <string name="brightness_text">Brightness: </string>
     <string name="size_text">Button Size: </string>
     <string name="orientation_text">Lock Orientation: </string>
+
+    <string name="color_picker">Select a Color!</string>
+    <string name="button_color_select_text">Select a Color</string>
 </resources>
