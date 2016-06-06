@@ -230,6 +230,7 @@ public class NewButtonActivity extends AppCompatActivity {
 
     private void onDone() {
         if (mFilename != null) {
+            saveFile();
             Intent intent = new Intent();
             intent.putExtra(MainActivity.FILENAME_EXTRA, mFilename);
             intent.putExtra(MainActivity.COLOR_EXTRA, mColor);
@@ -255,6 +256,13 @@ public class NewButtonActivity extends AppCompatActivity {
             }
         });
         colors.show(getFragmentManager(), "color picker");
+    }
+
+    private void saveFile(){
+        File old = new File(mFilename);
+        String newFileString = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + FOLDER + File.separator + mFilenameText.getText();
+        File newF = new File(newFileString);
+        old.renameTo(newF);
     }
 
 }
