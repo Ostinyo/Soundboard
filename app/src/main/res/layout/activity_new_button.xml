@@ -10,18 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/filename_text"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/colorHint"
-            android:longClickable="true"
-            android:hint="filename" />
-
         <Space
             android:layout_width="match_parent"
             android:layout_height="15dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/record_help_text"
+            android:id="@+id/recordText"
+            android:textColor="@color/default2"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal" />
 
         <ImageButton
@@ -32,10 +33,16 @@
             android:src="@drawable/record"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
-        <Space
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_height="wrap_content"
+            android:id="@+id/filename_text"
+            android:longClickable="true"
+            android:hint="@string/edit_text"
+            android:textAlignment="center"
+            android:background="@drawable/edit_text_style"
+            android:layout_margin="10dp"
+            android:singleLine="true"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -51,9 +58,10 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/fab_margin"
                 android:src="@drawable/ic_menu_play_clip"
-                android:tint="@color/colorBackground"
+                android:tint="@color/colorHint"
                 android:tintMode="multiply"
-                android:background="@color/colorHint" />
+                android:background="@color/colorBackground"
+                android:elevation="10dp"/>
 
             <Space
                 android:layout_width="wrap_content"
@@ -68,9 +76,10 @@
                 android:layout_marginTop="@dimen/fab_margin"
                 android:src="@drawable/ic_menu_archive"
                 android:onClick="browseFileSystem"
-                android:tint="#ef8821"
+                android:tint="@color/colorHint"
                 android:tintMode="multiply"
-                android:background="@color/colorHint" />
+                android:background="@color/colorBackground"
+                android:elevation="10dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -93,15 +102,20 @@
                 android:text="@string/button_color_select_text"
                 android:id="@+id/button_color_select"
                 android:onClick="selectColor"
-                android:textColor="#ffffff"
-                android:layout_weight="1" />
+                android:textColor="@color/colorHint"
+                android:layout_weight="1"
+                android:elevation="10dp"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:id="@+id/new_button_done"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_menu_forward" />
+                android:src="@drawable/ic_menu_forward"
+                android:background="@color/colorBackground"
+                android:tint="@color/colorHint"
+                android:tintMode="multiply"
+                android:elevation="10dp"/>
 
         </LinearLayout>
     </LinearLayout>
