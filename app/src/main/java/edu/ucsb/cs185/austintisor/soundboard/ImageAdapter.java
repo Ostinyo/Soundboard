@@ -42,7 +42,7 @@ public class ImageAdapter extends BaseAdapter {
             soundButton = (SoundButton) convertView;
         soundButton.setColor(buttonColors.get(position));
         soundButton.setName(buttonNames.get(position));
-        //soundButton.setFile(buttonFiles.get(position));
+        soundButton.setFile(buttonFiles.get(position));
         return soundButton;
     }
 

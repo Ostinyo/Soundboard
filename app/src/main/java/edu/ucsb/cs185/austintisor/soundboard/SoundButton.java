@@ -46,6 +46,7 @@ public class SoundButton extends Button implements OnClickListener {
     public void setFile (String file) {
         soundFile = file;
         try {
+            mediaPlayer.reset();
             mediaPlayer.setDataSource(file);
             mediaPlayer.prepare();
         } catch (IOException e) {
@@ -57,6 +58,7 @@ public class SoundButton extends Button implements OnClickListener {
     public void setUri (Uri uri) {
         soundUri = uri;
         try {
+            mediaPlayer.reset();
             mediaPlayer.setDataSource(c, soundUri);
         } catch (IOException e) { }
     }
