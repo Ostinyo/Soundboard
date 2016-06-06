@@ -15,7 +15,7 @@
         />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/boardNamePrompt"
         android:hint="@string/save_hint_text"
@@ -23,7 +23,6 @@
         android:background="@drawable/edit_text_style"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_weight=".05"
-        />
+        android:layout_marginRight="10dp"/>
 
 </LinearLayout>
