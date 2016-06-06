@@ -32,8 +32,8 @@
             android:id="@+id/imageButton"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:maxWidth="75dp"
-            android:maxHeight="75dp"
+            android:maxWidth="150dp"
+            android:maxHeight="150dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/record2"
             android:background="?attr/selectableItemBackgroundBorderless" />

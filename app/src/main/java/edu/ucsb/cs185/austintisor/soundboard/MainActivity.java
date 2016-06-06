@@ -103,7 +103,11 @@ public class MainActivity extends AppCompatActivity
                 onNewButton();
                 return true;
             case R.id.action_edit_buttons:
-                editing = true;
+                if (editing)
+                    editing = false;
+                else
+                    editing = true;
+                mAdapter.setEditing(editing);
                 // We should tint the edit icon here
                 return true;
         }

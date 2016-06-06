@@ -18,6 +18,7 @@ public class ImageAdapter extends BaseAdapter {
     List<String> buttonFiles = new ArrayList<>();
     List<String> buttonNames = new ArrayList<>();
     List<Integer> buttonColors = new ArrayList<>();
+    List<SoundButton> soundButtons = new ArrayList<>();
 
     public ImageAdapter(Context c){
         context = c;
@@ -44,6 +45,7 @@ public class ImageAdapter extends BaseAdapter {
         soundButton.setColor(buttonColors.get(position));
         soundButton.setName(buttonNames.get(position));
         soundButton.setFile(buttonFiles.get(position));
+        soundButtons.add(soundButton);
         return soundButton;
     }
 
@@ -52,6 +54,19 @@ public class ImageAdapter extends BaseAdapter {
         final SoundButton soundButton = new SoundButton(context);
         soundButton.setLayoutParams(new GridView.LayoutParams(250,250)); // Change to size preference
         soundButton.setPadding(5, 5, 5, 5);
+
+        /*
+        soundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean editing = soundButton.getEditing();
+                if (!editing)
+                    soundButton.playSound();
+                else
+                    Log.d("Edit mode","On!");
+            }
+        });*/
+
         return soundButton;
     }
 
@@ -77,5 +92,11 @@ public class ImageAdapter extends BaseAdapter {
         buttonNames.clear();
         buttonColors.clear();
         notifyDataSetChanged();
+    }
+
+    public void setEditing (boolean editing) {
+        for (SoundButton s : soundButtons) {
+            s.setEditing(editing);
+        }
     }
 }

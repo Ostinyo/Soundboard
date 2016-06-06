@@ -21,6 +21,7 @@ public class SoundButton extends Button implements OnClickListener {
     private String soundFile;
     private Uri soundUri;
     private MediaPlayer mediaPlayer;
+    private boolean editing = false;
 
     public SoundButton (Context context) {
         super(context);
@@ -40,9 +41,13 @@ public class SoundButton extends Button implements OnClickListener {
 
     @Override
     public void onClick (View v) {
-        // Play the sound (if already playing start it again)
-        Log.d("Button ","BUTTON!");
-        playSound();
+        if (!editing) {
+            // Play the sound (if already playing start it again)
+            Log.d("Sound Button", "Playing!");
+            playSound();
+        } else {
+            Log.d("Sound Button", "Editing!");
+        }
     }
 
     public void setFile (String file) {
@@ -76,14 +81,12 @@ public class SoundButton extends Button implements OnClickListener {
             mediaPlayer.start();
         } catch (IOException e) {
         }
-
     }
 
     public void stopSound () {
         if(mediaPlayer.isPlaying())
             mediaPlayer.stop();
     }
-
 
     public void setColor (int c) {
         color = c;
@@ -96,6 +99,15 @@ public class SoundButton extends Button implements OnClickListener {
         name = n;
         setText(name);
         Log.d("Name set to", name);
+    }
+
+    public void setEditing (boolean e) {
+        editing = e;
+        Log.d("Editing set to", Boolean.toString(e));
+    }
+
+    public boolean getEditing () {
+        return editing;
     }
 
     public String toString () {
