@@ -1,6 +1,7 @@
 package edu.ucsb.cs185.austintisor.soundboard;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -33,21 +34,23 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d("getView", "Called!");
         SoundButton soundButton;
         if (convertView == null)
             soundButton = createButton(position);
         else
             soundButton = (SoundButton) convertView;
+        soundButton.setColor(buttonColors.get(position));
+        soundButton.setName(buttonNames.get(position));
+        //soundButton.setFile(buttonFiles.get(position));
         return soundButton;
     }
 
     public SoundButton createButton (int position) {
+        Log.d("CreateButton", "Called!");
         final SoundButton soundButton = new SoundButton(context);
         soundButton.setLayoutParams(new GridView.LayoutParams(250,250)); // Change to size preference
         soundButton.setPadding(5, 5, 5, 5);
-        soundButton.setColor(buttonColors.get(position)); //(context.getResources().getColor(R.color.default1));
-        soundButton.setName(buttonNames.get(position));
-        soundButton.setFile(buttonFiles.get(position));
 
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override

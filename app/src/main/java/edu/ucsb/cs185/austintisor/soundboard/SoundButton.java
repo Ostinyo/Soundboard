@@ -2,6 +2,7 @@ package edu.ucsb.cs185.austintisor.soundboard;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.Button;
 import android.media.MediaPlayer;
 import android.view.View;
@@ -50,6 +51,7 @@ public class SoundButton extends Button implements OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Log.d("File set to", file);
     }
 
     public void setUri (Uri uri) {
@@ -80,11 +82,13 @@ public class SoundButton extends Button implements OnClickListener {
         color = c;
         // Actually set the color
         setBackgroundColor(color);
+        Log.d("Color set to", Integer.toString(color));
     }
 
     public void setName (String n) {
         name = n;
         setText(name);
+        Log.d("Name set to", name);
     }
 
     public String toString () {
