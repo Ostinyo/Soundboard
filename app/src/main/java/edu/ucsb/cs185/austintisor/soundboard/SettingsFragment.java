@@ -2,9 +2,12 @@ package edu.ucsb.cs185.austintisor.soundboard;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.app.DialogFragment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,17 +20,9 @@ public class SettingsFragment extends DialogFragment {
     private SeekBar volumeSlider, sizeSlider;
     private OnSettingsSetListener listener;
 
-    public void setSettingsSetListener(OnSettingsSetListener listener) {
-        this.listener = listener;
-    }
-
-    public interface OnSettingsSetListener {
-        void onSettingsSet(int volume, int size);
-    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //Create a builder
+        final Context context = getActivity().getApplicationContext();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         //Inflate (turn xml into code) your layout
@@ -36,15 +31,20 @@ public class SettingsFragment extends DialogFragment {
         //Get any Views you need (Any local variables accessed from inside an anonymous inner class must be final)
         volumeSlider = (SeekBar) contentView.findViewById(R.id.volume_slider);
         sizeSlider = (SeekBar) contentView.findViewById(R.id.size_slider);
+        AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        final int maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        final int curVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        volumeSlider.setMax(maxVolume);
+        volumeSlider.setProgress(curVolume);
 
         //Pass your data to the builder (these can be chained)
         builder.setView(contentView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        int volume = volumeSlider.getProgress();
-                        int size = sizeSlider.getProgress();
-                        listener.onSettingsSet(volume, size);
+                        setListeners();
+                        AudioManager bm = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+                        bm.setStreamVolume(AudioManager.STREAM_MUSIC, volumeSlider.getProgress(),0);
                     }
                 });
 
@@ -52,12 +52,20 @@ public class SettingsFragment extends DialogFragment {
         return builder.create();
     }
 
+    public void setSettingsSetListener(OnSettingsSetListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnSettingsSetListener {
+        void onSettingsSet(int volume, int size);
+    }
+
     public void setListeners() {
         volumeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressChanged = 0;
-
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressChanged = progress;
+                Toast.makeText(getActivity(), "Volume Changed", Toast.LENGTH_SHORT).show();
+                volumeSlider.setProgress(progress);
+                
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -65,7 +73,24 @@ public class SettingsFragment extends DialogFragment {
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
-                //Toast.makeText(MainActivity.this, "seek bar progress:" + progressChanged, Toast.LENGTH_SHORT).show();
+                // Do nothing
+            }
+        });
+
+        sizeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //Implement later
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //Do nothing
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Do nothing
             }
         });
     }
