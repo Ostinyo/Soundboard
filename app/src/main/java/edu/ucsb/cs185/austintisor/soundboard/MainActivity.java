@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK){
                 String filename = data.getStringExtra(FILENAME_EXTRA);
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
+                myAdapter.addButton(filename, color);
             }
         }
     }

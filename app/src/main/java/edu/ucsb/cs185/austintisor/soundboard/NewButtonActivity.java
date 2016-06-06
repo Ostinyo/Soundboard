@@ -85,7 +85,7 @@ public class NewButtonActivity extends AppCompatActivity {
         switch (requestCode) {
 
             case SELECT_SOUND:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK && data != null) {
                     mFilename = data.getData().getPath();
                     setFilenameText(mFilename);
                     activatePlay();
@@ -101,6 +101,13 @@ public class NewButtonActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("file/*");
         startActivityForResult(intent, SELECT_SOUND);
+    }
+
+    // Method for use sound button
+    public void setSound (View v) {
+        if (savedUri != null) {
+
+        }
     }
 
     class RecordListener implements View.OnTouchListener {
@@ -137,7 +144,6 @@ public class NewButtonActivity extends AppCompatActivity {
                 onPlay(true);
             }
     }
-
 
     private void onRecord(boolean start) {
         if (start) {

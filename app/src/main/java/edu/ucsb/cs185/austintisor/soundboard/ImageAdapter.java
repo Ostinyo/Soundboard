@@ -65,4 +65,8 @@ public class ImageAdapter extends BaseAdapter {
         return buttons.get(position);
     }
 
+    public void addButton (String filename, int color) {
+        buttons.add(1); // Change to hold buttons instead
+        notifyDataSetChanged();
+    }
 }

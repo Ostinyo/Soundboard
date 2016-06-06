@@ -60,6 +60,7 @@ public class SoundButton extends Button implements OnClickListener {
     }
 
     public void playSound () {
+        // Fix the scenario when the button is pressed while playing sound
         /*if (mediaPlayer.isPlaying()) {
             stopSound();
             mediaPlayer.reset();
