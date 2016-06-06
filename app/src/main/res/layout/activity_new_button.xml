@@ -35,8 +35,15 @@
             android:maxWidth="150dp"
             android:maxHeight="150dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/record2"
+            android:src="@drawable/record"
             android:background="?attr/selectableItemBackgroundBorderless" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_preview"
+            android:textColor="@color/red"
+            android:layout_gravity="center"/>
 
 
         <ImageButton
@@ -51,12 +58,7 @@
             android:background="@color/colorBackground"
             android:elevation="10dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sound_preview"
-            android:textColor="@color/red"
-            android:layout_gravity="center"/>
+
 
         <EditText
             android:layout_width="wrap_content"
@@ -71,7 +73,7 @@
             android:singleLine="true"/>
 
         <TextView
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="100dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -92,6 +94,7 @@
             android:tintMode="multiply"
             android:background="@color/colorBackground"
             android:elevation="10dp"/>
+
     </LinearLayout>
 
     <LinearLayout
