@@ -1,6 +1,8 @@
 package edu.ucsb.cs185.austintisor.soundboard;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.Button;
@@ -14,9 +16,10 @@ import java.io.IOException;
 public class SoundButton extends Button implements OnClickListener {
 
     private Context c;
+    private static final int EDIT_BUTTON_INTENT = 5;
 
     private String name;
-    private int color;
+    private int index, color;
 
     private String soundFile;
     private Uri soundUri;
@@ -46,7 +49,14 @@ public class SoundButton extends Button implements OnClickListener {
             Log.d("Sound Button", "Playing!");
             playSound();
         } else {
+            // Launch the new button activity to modify data
             Log.d("Sound Button", "Editing!");
+            Intent intent = new Intent(c, NewButtonActivity.class);
+            //intent.putExtra(MainActivity.EDIT_INDEX, index);
+            intent.putExtra(MainActivity.EDIT_SOUND, soundFile);
+            //intent.putExtra(MainActivity.EDIT_COLOR, color);
+            //intent.putExtra(MainActivity.EDIT_NAME, name);
+            ((Activity)c).startActivityForResult(intent, EDIT_BUTTON_INTENT);
         }
     }
 

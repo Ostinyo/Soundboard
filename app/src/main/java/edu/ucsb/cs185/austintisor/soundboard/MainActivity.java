@@ -34,9 +34,10 @@ public class MainActivity extends AppCompatActivity
 
     private ImageAdapter mAdapter;
     private static final int PERMISSIONS_REQUEST = 2;
-    private static final int NEW_BUTTON_INTENT = 3;
+    private static final int NEW_BUTTON_INTENT = 3, EDIT_BUTTON_INTENT = 5;
     private static final int SELECT_BOARD = 4;
     public static final String FILENAME_EXTRA = "filename", NAME_EXTRA = "name", COLOR_EXTRA = "color";
+    public static final String EDIT_SOUND = "edit_filename";
 
     private boolean editing = false;
 
@@ -185,10 +186,20 @@ public class MainActivity extends AppCompatActivity
                 String filename = data.getStringExtra(FILENAME_EXTRA);
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
                 String name = data.getStringExtra(NAME_EXTRA);
+
                 mAdapter.addButton(filename, name, color);
                 Log.d("Color", Integer.toString(color));
                 Log.d("Filename", filename);
                 Log.d("Name", name);
+            }
+        } else if (requestCode == EDIT_BUTTON_INTENT) {
+            if (resultCode == RESULT_OK) {
+                // Change the button data
+                String filename = data.getStringExtra(FILENAME_EXTRA);
+                int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
+                String name = data.getStringExtra(NAME_EXTRA);
+
+                //mAdapter.editButton();
             }
         }
     }

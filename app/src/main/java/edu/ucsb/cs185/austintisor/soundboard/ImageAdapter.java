@@ -55,18 +55,6 @@ public class ImageAdapter extends BaseAdapter {
         soundButton.setLayoutParams(new GridView.LayoutParams(250,250)); // Change to size preference
         soundButton.setPadding(5, 5, 5, 5);
 
-        /*
-        soundButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean editing = soundButton.getEditing();
-                if (!editing)
-                    soundButton.playSound();
-                else
-                    Log.d("Edit mode","On!");
-            }
-        });*/
-
         return soundButton;
     }
 
@@ -98,5 +86,9 @@ public class ImageAdapter extends BaseAdapter {
         for (SoundButton s : soundButtons) {
             s.setEditing(editing);
         }
+    }
+
+    public void editButton (int position, String filename, String name, int color) {
+        // Replace the button in this position
     }
 }
