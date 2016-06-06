@@ -3,6 +3,7 @@ package edu.ucsb.cs185.austintisor.soundboard;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.net.Uri;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class SoundButton extends Button implements OnClickListener {
 
@@ -25,7 +27,7 @@ public class SoundButton extends Button implements OnClickListener {
     private int rawSound = R.raw.drum1;
     private Uri soundUri;
     private MediaPlayer mediaPlayer;
-    private boolean editing = false;
+    private boolean editing = false, raw = false;
 
     public SoundButton (Context context) {
         super(context);
@@ -77,10 +79,18 @@ public class SoundButton extends Button implements OnClickListener {
         mediaPlayer.release();
         mediaPlayer = new MediaPlayer();
         try {
-            mediaPlayer.setDataSource(soundFile);
-            mediaPlayer.prepare();
+            if (!raw) {
+                mediaPlayer.setDataSource(soundFile);
+                mediaPlayer.prepare();
+            }
+            else {
+                //InputStream ins = getResources().openRawResource(rawSound);
+                mediaPlayer = MediaPlayer.create(c, rawSound);
+                //ins.close();
+            }
             mediaPlayer.start();
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -109,6 +119,11 @@ public class SoundButton extends Button implements OnClickListener {
 
     public boolean getEditing () {
         return editing;
+    }
+
+    public void setRawSound (int r) {
+        rawSound = r;
+        raw = true;
     }
 
     public String toString () {

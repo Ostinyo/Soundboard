@@ -66,6 +66,27 @@ public class ImageAdapter extends BaseAdapter {
         soundButton.setColor(buttonColors.get(position));
         soundButton.setName(buttonNames.get(position));
         soundButton.setFile(buttonFiles.get(position));
+
+        // Sketchily make the default board work
+        if (position == 0)
+            soundButton.setRawSound(R.raw.drum1);
+        else if (position == 1)
+            soundButton.setRawSound(R.raw.drum2);
+        else if (position == 2)
+            soundButton.setRawSound(R.raw.drum3);
+        else if (position == 3)
+            soundButton.setRawSound(R.raw.guitar1);
+        else if (position == 4)
+            soundButton.setRawSound(R.raw.piano_melody1);
+        else if (position == 5)
+            soundButton.setRawSound(R.raw.violin1);
+        else if (position == 6)
+            soundButton.setRawSound(R.raw.whistle);
+        else if (position == 7)
+            soundButton.setRawSound(R.raw.applause);
+        else if (position == 8)
+            soundButton.setRawSound(R.raw.bird);
+
         soundButtons.add(soundButton);
         return soundButton;
     }
