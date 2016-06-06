@@ -75,7 +75,7 @@ public class SoundButton extends Button implements OnClickListener {
 
     public void playSound () {
         mediaPlayer.release();
-        mediaPlayer = MediaPlayer.create(c, rawSound);
+        mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(soundFile);
             mediaPlayer.prepare();

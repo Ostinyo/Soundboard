@@ -94,11 +94,11 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.action_settings:
-                final Dialog dialog = new Dialog(this);
+                /*final Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.fragment_settings);
                 dialog.setTitle("Settings");
-                dialog.show();
-                //showSettingsFragment(); // Will replace for easier access to sliders
+                dialog.show();*/
+                showSettingsFragment(); // Will replace for easier access to sliders
                 return true;
             case R.id.action_add_button:
                 onNewButton();
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         //Show the fragment
-        //settingsFragment.show(getFragmentManager(), "settings_fragment"); // Not working?
+        settingsFragment.show(getFragmentManager(), "settings_fragment"); // Not working?
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
