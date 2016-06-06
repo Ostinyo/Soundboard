@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity
     public static final String FILENAME_EXTRA = "filename";
     public static final String COLOR_EXTRA = "color";
 
+    private boolean editing = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,30 +57,6 @@ public class MainActivity extends AppCompatActivity
 
         final GridView gridView = (GridView) findViewById(R.id.boardGrid);
         gridView.setAdapter(myAdapter);
-
-        /*gridView.setOnTouchListener(new AdapterView.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getActionMasked();
-                float currentX = event.getX();
-                float currentY = event.getY();
-                int position = gridView.pointToPosition((int) currentX, (int) currentY);
-                switch (action) {
-                    case (MotionEvent.ACTION_DOWN):
-                        sound = MediaPlayer.create(MainActivity.this, boardSounds.get(position));
-                        sound.start();
-                        return true;
-                    case (MotionEvent.ACTION_MOVE):
-                        return true;
-                    case (MotionEvent.ACTION_UP):
-                        sound.stop();
-                        return true;
-                    case (MotionEvent.ACTION_CANCEL):
-                        return true;
-                }
-                return true;
-            }
-        });*/
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -118,6 +96,10 @@ public class MainActivity extends AppCompatActivity
                 return true;
             case R.id.action_add_button:
                 onNewButton();
+                return true;
+            case R.id.action_edit_buttons:
+                editing = true;
+                // We should tint the edit icon here
                 return true;
         }
 
