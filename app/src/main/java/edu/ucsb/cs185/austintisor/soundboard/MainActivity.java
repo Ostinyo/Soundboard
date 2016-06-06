@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private ImageAdapter myAdapter = new ImageAdapter(this);
     private static final int PERMISSIONS_REQUEST = 2;
     private static final int NEW_BUTTON_INTENT = 3;
+    private static final int SELECT_BOARD = 4;
     public static final String FILENAME_EXTRA = "filename";
     public static final String COLOR_EXTRA = "color";
 
@@ -129,20 +130,29 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.nav_new:
+                // Create a new board (future possibility)
+            case R.id.nav_clear:
+                // Clear the board
+                myAdapter.clear();
             case R.id.nav_load:
                 // Launch load dialogue fragment/file system
+                browseFileSystem();
             case R.id.nav_save:
                 // Launch save dialogue fragment
                 SaveBoardFragment saveBoardFragment = new SaveBoardFragment();
                 saveBoardFragment.show(getFragmentManager(), "save_board_fragment");
-            case R.id.nav_clear:
-                // Clear the board
-                myAdapter.clear();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void browseFileSystem () {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("file/*");
+        startActivityForResult(intent, SELECT_BOARD);
     }
 
     public void onNewButton() {

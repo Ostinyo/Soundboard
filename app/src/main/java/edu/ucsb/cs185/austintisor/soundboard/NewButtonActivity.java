@@ -214,30 +214,33 @@ public class NewButtonActivity extends AppCompatActivity {
         }
     }
 
-    private void setFilenameText(String path){
+    private void setFilenameText(String path) {
         mFilenameText.setText(path.substring(path.lastIndexOf(File.separator)+1));
     }
 
-    private void activatePlay(){
+    private void activatePlay() {
         mPlayButton.setEnabled(true);
         mPlayButton.setColorFilter(PLAY_TINT, PorterDuff.Mode.MULTIPLY);
     }
 
-    private void deactivatePlay(){
+    private void deactivatePlay() {
         mPlayButton.setEnabled(false);
         mPlayButton.setColorFilter(getResources().getColor(R.color.colorBackground), PorterDuff.Mode.MULTIPLY);
     }
 
-    private void onDone(){
-        Intent intent = new Intent();
-        intent.putExtra(MainActivity.FILENAME_EXTRA, mFilename);
-        intent.putExtra(MainActivity.COLOR_EXTRA, mColor);
-        setResult(RESULT_OK, intent);
-        finish();
+    private void onDone() {
+        if (mFilename != null) {
+            Intent intent = new Intent();
+            intent.putExtra(MainActivity.FILENAME_EXTRA, mFilename);
+            intent.putExtra(MainActivity.COLOR_EXTRA, mColor);
+            setResult(RESULT_OK, intent);
+            finish();
+        } else
+            Toast.makeText(this, "You must select a sound!", Toast.LENGTH_SHORT).show();
     }
 
     //Credit: https://github.com/xdtianyu/ColorPicker
-    public void selectColor(View view){
+    public void selectColor(View view) {
         int[] colorArray = {Color.BLACK, Color.DKGRAY, Color.GRAY, Color.LTGRAY, Color.RED,  Color.YELLOW, Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA};
         ColorPickerDialog colors = ColorPickerDialog.newInstance(R.string.color_picker,
                 colorArray,
