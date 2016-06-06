@@ -13,34 +13,46 @@ import java.util.List;
 public class ImageAdapter extends BaseAdapter {
 
     private Context context;
-    List<Integer> imageIDs = new ArrayList<>();
+    List<Integer> buttons = new ArrayList<>();
 
     public ImageAdapter(Context c){
-        context=c;
+        context = c;
         for(int i=0; i<9; i++) {
-            imageIDs.add(R.drawable.grid_button);
+            buttons.add(1); // Replace with board loading
         }
     }
 
     @Override
     public int getCount() {
-        return imageIDs.size();
+        return buttons.size();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if(convertView==null){
-            imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(200,200));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(5, 5, 5, 5);
-        }
-        else{
-            imageView = (ImageView) convertView;
-        }
-        imageView.setImageResource(imageIDs.get(position));
-        return imageView;
+        SoundButton soundButton;
+        if (convertView == null)
+            soundButton = createButton();
+        else
+            soundButton = (SoundButton) convertView;
+        //soundButton.setImageResource(buttons.get(position));
+        return soundButton;
+    }
+
+    public SoundButton createButton () {
+        final SoundButton soundButton = new SoundButton(context);
+        soundButton.setLayoutParams(new GridView.LayoutParams(250,250));
+        //soundButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        soundButton.setPadding(5, 5, 5, 5);
+        soundButton.setBackgroundColor(context.getResources().getColor(R.color.default1));
+
+        soundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                soundButton.playSound();
+            }
+        });
+
+        return soundButton;
     }
 
     @Override
@@ -50,7 +62,7 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return imageIDs.get(position);
+        return buttons.get(position);
     }
 
 }

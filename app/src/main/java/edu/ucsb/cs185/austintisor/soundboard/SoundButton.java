@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Button;
 import android.media.MediaPlayer;
-import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -20,16 +19,16 @@ public class SoundButton extends Button implements OnClickListener {
 
     public SoundButton (Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public SoundButton (Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
-    public void init () {
-        mediaPlayer = new MediaPlayer();
+    public void init (Context context) {
+        mediaPlayer = MediaPlayer.create(context, R.raw.drum1); // Temporarily set to drum1
     }
 
     @Override
@@ -60,7 +59,7 @@ public class SoundButton extends Button implements OnClickListener {
     public void setBackgroundColor (int c) {
         color = c;
         // Actually set the color
-        setBackgroundColor(c);
+        super.setBackgroundColor(c);
     }
 
     public String toString () {

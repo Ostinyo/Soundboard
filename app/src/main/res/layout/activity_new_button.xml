@@ -38,11 +38,19 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button"
+            android:id="@+id/button_load"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/fab_margin"
             android:src="@drawable/ic_menu_archive"
             android:onClick="browseFileSystem" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_use"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recorder_use"
+        android:textSize="@dimen/text_title"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

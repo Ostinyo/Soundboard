@@ -16,6 +16,7 @@
     <string name="recorder_play">Listen to Sound</string>
     <string name="recorder_done">Done</string>
     <string name="recorder_cancel">Cancel</string>
+    <string name="recorder_use">Use Sound</string>
 
     <string name="button_title">Edit Button</string>
     <string name="button_name">Name: </string>

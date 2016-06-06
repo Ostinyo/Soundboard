@@ -28,9 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    MediaPlayer sound;
-    List<Integer> boardSounds = new ArrayList<>();
-    ImageAdapter myAdapter = new ImageAdapter(this);
+    private ImageAdapter myAdapter = new ImageAdapter(this);
     private static final int PERMISSIONS_REQUEST = 2;
 
     @Override
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initializeDefaultBoard();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -52,11 +49,8 @@ public class MainActivity extends AppCompatActivity
 
         askPermissions();
 
-        // Test button
-
-
-        //final GridView gridView = (GridView) findViewById(R.id.boardGrid);
-        //gridView.setAdapter(myAdapter);
+        final GridView gridView = (GridView) findViewById(R.id.boardGrid);
+        gridView.setAdapter(myAdapter);
 
         /*gridView.setOnTouchListener(new AdapterView.OnTouchListener() {
             @Override
@@ -81,18 +75,6 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
         });*/
-    }
-
-    public void initializeDefaultBoard(){
-        boardSounds.add(R.raw.drum1);
-        boardSounds.add(R.raw.drum2);
-        boardSounds.add(R.raw.applause);
-        boardSounds.add(R.raw.bird);
-        boardSounds.add(R.raw.guitar1);
-        boardSounds.add(R.raw.piano_melody1);
-        boardSounds.add(R.raw.drum3);
-        boardSounds.add(R.raw.violin1);
-        boardSounds.add(R.raw.whistle);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
