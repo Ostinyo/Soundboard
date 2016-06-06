@@ -46,11 +46,16 @@ public class NewButtonActivity extends AppCompatActivity {
     private MediaPlayer   mPlayer = null;
     private final int PLAY_TINT = Color.GREEN;
 
+    private ImageButton mDoneButton;
+
     private EditText mFilenameText;
 
     private static final String LOG_TAG = "NewButtonActivity";
     private static final int TINT_COLOR = Color.argb(120, 0, 0, 255);
     private static final int NO_COLOR = Color.argb(0, 0, 0, 0);
+    public static final int DEFAULT_COLOR = Color.BLUE;
+
+    private int mColor = DEFAULT_COLOR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,14 @@ public class NewButtonActivity extends AppCompatActivity {
         mPlayButton = (ImageButton) findViewById(R.id.new_button_play);
         mPlayButton.setOnClickListener(new PlayListener());
         mPlayButton.setEnabled(false);
+
+        mDoneButton = (ImageButton) findViewById(R.id.new_button_done);
+        mDoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDone();
+            }
+        });
 
         mFilenameText = (EditText)findViewById(R.id.filename_text);
     }
@@ -207,6 +220,14 @@ public class NewButtonActivity extends AppCompatActivity {
     private void deactivatePlay(){
         mPlayButton.setEnabled(false);
         mPlayButton.setColorFilter(getResources().getColor(R.color.colorBackground), PorterDuff.Mode.MULTIPLY);
+    }
+
+    private void onDone(){
+        Intent intent = new Intent();
+        intent.putExtra(MainActivity.FILENAME_EXTRA, mFilename);
+        intent.putExtra(MainActivity.COLOR_EXTRA, mColor);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 }

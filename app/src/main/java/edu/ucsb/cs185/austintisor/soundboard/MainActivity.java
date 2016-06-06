@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity
 
     private ImageAdapter myAdapter = new ImageAdapter(this);
     private static final int PERMISSIONS_REQUEST = 2;
+    private static final int NEW_BUTTON_INTENT = 3;
+    public static final String FILENAME_EXTRA = "filename";
+    public static final String COLOR_EXTRA = "color";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +145,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onNewButton() {
         Intent intent = new Intent(this, NewButtonActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, NEW_BUTTON_INTENT);
     }
 
     public void onEditButton(View view) {
@@ -156,4 +160,15 @@ public class MainActivity extends AppCompatActivity
         //Show the fragment
         buttonFragment.show(getFragmentManager(), "edit_button");
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == NEW_BUTTON_INTENT){
+            if(resultCode == RESULT_OK){
+                String filename = data.getStringExtra(FILENAME_EXTRA);
+                int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
+            }
+        }
+    }
+
 }
