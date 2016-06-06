@@ -13,11 +13,22 @@
     tools:context="edu.ucsb.cs185.austintisor.soundboard.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mode: Play Mode"
+        android:id="@+id/mode"
+        android:layout_gravity="right"
+        android:textSize="18sp"
+        android:textColor="#fff1f1"
+        />
+
     <GridView
         android:id="@+id/boardGrid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:columnWidth="90dp"
+        android:layout_margin="90dp"
         android:numColumns="auto_fit"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="20dp"

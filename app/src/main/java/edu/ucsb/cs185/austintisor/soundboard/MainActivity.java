@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -101,10 +102,20 @@ public class MainActivity extends AppCompatActivity
                 onNewButton();
                 return true;
             case R.id.action_edit_buttons:
-                if (editing)
+                if (editing) {
+                    item.setIcon(R.drawable.ic_menu_edit);
+                    TextView textView;
+                    textView = (TextView) findViewById(R.id.mode);
+                    textView.setText(R.string.play_mode);
                     editing = false;
-                else
+                }
+                else {
+                    item.setIcon(R.drawable.ic_menu_play_clip);
+                    TextView textView;
+                    textView = (TextView) findViewById(R.id.mode);
+                    textView.setText(R.string.edit_mode);
                     editing = true;
+                }
                 mAdapter.setEditing(editing);
                 // We should tint the edit icon here
                 return true;
