@@ -67,7 +67,7 @@ public class ImageAdapter extends BaseAdapter {
         soundButton.setName(buttonNames.get(position));
         soundButton.setFile(buttonFiles.get(position));
 
-        // Sketchily make the default board work
+        // Sketchily make the default board work, this will overwrite a new board
         if (position == 0)
             soundButton.setRawSound(R.raw.drum1);
         else if (position == 1)
@@ -86,6 +86,7 @@ public class ImageAdapter extends BaseAdapter {
             soundButton.setRawSound(R.raw.applause);
         else if (position == 8)
             soundButton.setRawSound(R.raw.bird);
+        Log.d("Button position", Integer.toString(position));
 
         soundButtons.add(soundButton);
         return soundButton;

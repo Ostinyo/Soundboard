@@ -23,7 +23,7 @@ public class SoundButton extends Button implements OnClickListener {
     private String name;
     private int index, color;
 
-    private String soundFile;
+    private String soundFile = null;
     private int rawSound = R.raw.drum1;
     private Uri soundUri;
     private MediaPlayer mediaPlayer;
@@ -79,7 +79,7 @@ public class SoundButton extends Button implements OnClickListener {
         mediaPlayer.release();
         mediaPlayer = new MediaPlayer();
         try {
-            if (!raw) {
+            if (soundFile != "filename") {
                 mediaPlayer.setDataSource(soundFile);
                 mediaPlayer.prepare();
             }
@@ -123,7 +123,6 @@ public class SoundButton extends Button implements OnClickListener {
 
     public void setRawSound (int r) {
         rawSound = r;
-        raw = true;
     }
 
     public String toString () {
