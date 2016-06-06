@@ -6,15 +6,19 @@ import android.widget.Button;
 import android.media.MediaPlayer;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.net.Uri;
 
 import java.io.IOException;
 
 public class SoundButton extends Button implements OnClickListener {
 
+    private Context c;
+
     private String name;
     private int color;
 
     private String soundFile;
+    private Uri soundUri;
     private MediaPlayer mediaPlayer;
 
     public SoundButton (Context context) {
@@ -28,6 +32,7 @@ public class SoundButton extends Button implements OnClickListener {
     }
 
     public void init (Context context) {
+        c = context;
         mediaPlayer = MediaPlayer.create(context, R.raw.drum1); // Temporarily set to drum1
     }
 
@@ -47,7 +52,22 @@ public class SoundButton extends Button implements OnClickListener {
         }
     }
 
+    public void setUri (Uri uri) {
+        soundUri = uri;
+        try {
+            mediaPlayer.setDataSource(c, soundUri);
+        } catch (IOException e) { }
+    }
+
     public void playSound () {
+        /*if (mediaPlayer.isPlaying()) {
+            stopSound();
+            mediaPlayer.reset();
+            try {
+                mediaPlayer.setDataSource(c, soundURI);
+                mediaPlayer.prepare();
+            } catch (IOException e) { }
+        }*/
         mediaPlayer.start();
     }
 
