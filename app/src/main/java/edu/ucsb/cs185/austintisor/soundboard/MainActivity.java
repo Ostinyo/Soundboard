@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity
                 dialog.setContentView(R.layout.fragment_settings);
                 dialog.setTitle("Settings");
                 dialog.show();
+                //showSettingsFragment(); // Will replace for easier access to sliders
                 return true;
             case R.id.action_add_button:
                 onNewButton();
@@ -105,6 +107,19 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showSettingsFragment () {
+        final SettingsFragment settingsFragment = new SettingsFragment();
+        settingsFragment.setSettingsSetListener(new SettingsFragment.OnSettingsSetListener() {
+            @Override
+            public void onSettingsSet(int volume, int size) {
+                // Do stuff with the set values
+            }
+        });
+
+        //Show the fragment
+        //settingsFragment.show(getFragmentManager(), "settings_fragment"); // Not working?
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -154,5 +169,4 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
 }

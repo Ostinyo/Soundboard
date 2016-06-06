@@ -22,12 +22,15 @@
         android:paddingBottom="5dp"
         android:paddingLeft="@dimen/fab_margin" />
     <SeekBar
-        android:layout_width="wrap_content"
+        android:id="@+id/volume_slider"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/text_volume"
-        android:layout_toEndOf="@+id/text_volume"
-        android:layout_toRightOf="@+id/text_volume"
-        android:layout_centerVertical="true" />
+        android:layout_toEndOf="@+id/text_button_size"
+        android:layout_toRightOf="@+id/text_button_size"
+        android:layout_centerVertical="true"
+        android:paddingRight="@dimen/fab_margin"
+        android:progress="100" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,6 +42,16 @@
         android:paddingTop="5dp"
         android:paddingLeft="@dimen/fab_margin"
         android:paddingBottom="@dimen/fab_margin"/>
-
+    <SeekBar
+        android:id="@+id/size_slider"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/text_button_size"
+        android:layout_toEndOf="@+id/text_button_size"
+        android:layout_toRightOf="@+id/text_button_size"
+        android:layout_centerVertical="true"
+        android:paddingRight="@dimen/fab_margin"
+        android:progress="3"
+        android:max="4"/>
 
 </RelativeLayout>
