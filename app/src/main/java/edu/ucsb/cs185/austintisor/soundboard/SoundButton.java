@@ -76,11 +76,15 @@ public class SoundButton extends Button implements OnClickListener {
         mediaPlayer.stop();
     }
 
-    @Override
-    public void setBackgroundColor (int c) {
+    public void setColor (int c) {
         color = c;
         // Actually set the color
-        super.setBackgroundColor(c);
+        setBackgroundColor(color);
+    }
+
+    public void setName (String n) {
+        name = n;
+        setText(name);
     }
 
     public String toString () {
