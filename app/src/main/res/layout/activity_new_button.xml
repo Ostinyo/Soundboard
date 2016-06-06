@@ -21,21 +21,48 @@
             android:text="@string/record_help_text"
             android:id="@+id/recordText"
             android:textColor="@color/default2"
-            android:textSize="12sp"
-            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="5dp"
             android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageButton"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:maxWidth="75dp"
+            android:maxHeight="75dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/record2"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
+            android:id="@+id/new_button_play"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/record"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:layout_marginTop="@dimen/fab_margin"
+            android:src="@drawable/ic_menu_play_clip"
+            android:tint="@color/colorHint"
+            android:tintMode="multiply"
+            android:background="@color/colorBackground"
+            android:elevation="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_preview"
+            android:textColor="@color/red"
+            android:layout_gravity="center"/>
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:id="@+id/filename_text"
             android:longClickable="true"
             android:hint="@string/edit_text"
@@ -44,43 +71,28 @@
             android:layout_margin="10dp"
             android:singleLine="true"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_marginTop="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:weightSum="1">
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            android:id="@+id/browseOption"
+            android:textSize="20sp"
+            android:text="@string/browse_files"/>
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/new_button_play"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:src="@drawable/ic_menu_play_clip"
-                android:tint="@color/colorHint"
-                android:tintMode="multiply"
-                android:background="@color/colorBackground"
-                android:elevation="10dp"/>
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight=".2" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_load"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:src="@drawable/ic_menu_archive"
-                android:onClick="browseFileSystem"
-                android:tint="@color/colorHint"
-                android:tintMode="multiply"
-                android:background="@color/colorBackground"
-                android:elevation="10dp"/>
-        </LinearLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_load"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:src="@drawable/ic_menu_archive"
+            android:onClick="browseFileSystem"
+            android:tint="@color/colorHint"
+            android:tintMode="multiply"
+            android:background="@color/colorBackground"
+            android:elevation="10dp"/>
     </LinearLayout>
 
     <LinearLayout
