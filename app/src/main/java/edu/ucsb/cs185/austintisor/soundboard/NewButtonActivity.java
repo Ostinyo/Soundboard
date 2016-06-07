@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.AudioManager;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.content.pm.PackageManager;
@@ -44,6 +45,7 @@ public class NewButtonActivity extends AppCompatActivity {
 
     private final String FOLDER = "Soundboard";
     private static String mFilename = null, mName = "";
+    private Uri mFileUri;
 
     private ImageButton mRecordButton = null;
     private MediaRecorder mRecorder = null;
@@ -92,40 +94,20 @@ public class NewButtonActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_SOUND)
-            if (resultCode == RESULT_OK && data != null) {
+        switch (requestCode) {
 
-                // Get the Uri of the selected file
-                Uri uri = data.getData();
-                String uriString = uri.toString();
-                File file = new File(uriString);
-                String path = file.getAbsolutePath();
-                String displayName = null;
-
-                // Query a content resolver to get the file display name
-                if (uriString.startsWith("content://")) {
-                    Cursor cursor = null;
-                    try {
-                        cursor = this.getContentResolver().query(uri, null, null, null, null);
-                        if (cursor != null && cursor.moveToFirst()) {
-                            displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                        }
-                    } finally {
-                        cursor.close();
-                    }
-                } else if (uriString.startsWith("file://")) {
-                    displayName = file.getName();
+            case SELECT_SOUND:
+                if (resultCode == RESULT_OK && data != null) {
+                    mFileUri = data.getData();
+                    mFilename = mFileUri.getPath();
+                    setFilenameText(mFilename);
+                    activatePlay();
+                    Log.d("Select sound", "SELECTED");
+                    Log.d("Filename result", mFilename);
                 }
-
-                //mFilename = data.getData().getPath();
-                mFilename = path;
-                setFilenameText(displayName);
-                activatePlay();
-                Log.d("Select sound", "SELECTED");
-                Log.d("Filename result", mFilename);
-            }
-            else if (resultCode == RESULT_CANCELED)
-                Log.d("Select sound", "CANCELED");
+                else if (resultCode == RESULT_CANCELED)
+                    Log.d("Select sound", "CANCELED");
+        }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -138,19 +120,19 @@ public class NewButtonActivity extends AppCompatActivity {
     }
 
     class RecordListener implements View.OnTouchListener {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
-                    NewButtonActivity.this.setNextFilename();
-                    mRecordButton.setColorFilter(TINT_COLOR);
-                    onRecord(true);
-                } else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
-                    activatePlay();
-                    mRecordButton.setColorFilter(NO_COLOR);
-                    onRecord(false);
-                }
-                return true;
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
+                NewButtonActivity.this.setNextFilename();
+                mRecordButton.setColorFilter(TINT_COLOR);
+                onRecord(true);
+            } else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
+                activatePlay();
+                mRecordButton.setColorFilter(NO_COLOR);
+                onRecord(false);
             }
+            return true;
+        }
 
     }
 
@@ -167,9 +149,9 @@ public class NewButtonActivity extends AppCompatActivity {
     }
 
     class PlayListener implements View.OnClickListener {
-            public void onClick(View v) {
-                onPlay(true);
-            }
+        public void onClick(View v) {
+            onPlay(true);
+        }
     }
 
     private void onRecord(boolean start) {
@@ -199,7 +181,12 @@ public class NewButtonActivity extends AppCompatActivity {
         });
 
         try {
-            mPlayer.setDataSource(mFilename);
+            if(mFileUri != null){
+                mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mPlayer.setDataSource(this, mFileUri);
+            }else {
+                mPlayer.setDataSource(mFilename);
+            }
             mPlayer.prepare();
             mPlayer.start();
         } catch (IOException e) {
@@ -213,6 +200,8 @@ public class NewButtonActivity extends AppCompatActivity {
     }
 
     private void startRecording() {
+        mFileUri = null;
+
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -242,7 +231,7 @@ public class NewButtonActivity extends AppCompatActivity {
     }
 
     private void setFilenameText(String path) {
-        mFilenameText.setText(path.substring(path.lastIndexOf(File.separator)+1));
+        mFilenameText.setText(path.substring(path.lastIndexOf(File.separator) + 1));
     }
 
     private void activatePlay() {
@@ -259,7 +248,11 @@ public class NewButtonActivity extends AppCompatActivity {
         if (mFilename != null) {
             saveFile();
             Intent intent = new Intent();
-            intent.putExtra(MainActivity.FILENAME_EXTRA, mFilename);
+            if(mFileUri != null){
+                intent.setData(mFileUri);
+            }else{
+                intent.putExtra(MainActivity.FILENAME_EXTRA, mFilename);
+            }
             intent.putExtra(MainActivity.NAME_EXTRA, mName);
             intent.putExtra(MainActivity.COLOR_EXTRA, mColor);
             setResult(RESULT_OK, intent);

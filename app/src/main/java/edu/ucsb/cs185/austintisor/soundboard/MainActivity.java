@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -184,17 +185,22 @@ public class MainActivity extends AppCompatActivity
         if(requestCode == NEW_BUTTON_INTENT){
             if(resultCode == RESULT_OK){
                 String filename = data.getStringExtra(FILENAME_EXTRA);
+                Uri TEMP = data.getData(); //here Austin!
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
                 String name = data.getStringExtra(NAME_EXTRA);
 
                 mAdapter.addButton(filename, name, color);
                 Log.d("Color", Integer.toString(color));
-                Log.d("Filename", filename);
+                if(filename != null) {
+                    Log.d("Filename", filename);
+                }
                 Log.d("Name", name);
             }
         } else if (requestCode == EDIT_BUTTON_INTENT) {
             if (resultCode == RESULT_OK) {
                 // Change the button data
+
+                Uri TEMP = data.getData(); //here Austin!
                 String filename = data.getStringExtra(FILENAME_EXTRA);
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
                 String name = data.getStringExtra(NAME_EXTRA);
