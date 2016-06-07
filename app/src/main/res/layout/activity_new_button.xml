@@ -1,50 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:weightSum="1">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageButton"
+        android:layout_centerHorizontal="true"
+        android:text="@string/record_help_text"
+        android:id="@+id/recordText"
+        android:textColor="@color/default2"
+        android:textSize="@dimen/text_field"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/filename_text"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageButton"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:maxWidth="150dp"
+        android:maxHeight="150dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/record"
+        android:background="?attr/selectableItemBackgroundBorderless" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_above="@+id/browseOption"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/filename_text"
+        android:longClickable="true"
+        android:hint="@string/edit_filename"
+        android:textAlignment="center"
+        android:padding="5dp"
+        android:background="@drawable/edit_text_style"
+        android:layout_margin="10dp"
+        android:singleLine="true"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_load"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:textColor="@color/red"
+        android:id="@+id/browseOption"
+        android:textSize="@dimen/text_field"
+        android:text="@string/browse_files"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/button_load"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:src="@drawable/ic_menu_archive"
+        android:onClick="browseFileSystem"
+        android:tint="@color/colorHint"
+        android:tintMode="multiply"
+        android:background="@color/colorBackground"
+        android:elevation="10dp"/>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/button_load"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/record_help_text"
-            android:id="@+id/recordText"
-            android:textColor="@color/default2"
-            android:textSize="20sp"
-            android:layout_marginTop="75dp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center_horizontal" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:maxWidth="150dp"
-            android:maxHeight="150dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/record"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+        android:layout_height="match_parent"
+        android:gravity="bottom">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sound_preview"
+            android:textSize="@dimen/text_title"
             android:textColor="@color/red"
             android:layout_gravity="center"/>
-
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -58,56 +106,25 @@
             android:background="@color/colorBackground"
             android:elevation="10dp"/>
 
-
-
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/filename_text"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/name_text"
             android:longClickable="true"
-            android:hint="@string/edit_text"
+            android:hint="@string/edit_name"
             android:textAlignment="center"
+            android:maxLength="15"
+            android:padding="5dp"
             android:background="@drawable/edit_text_style"
             android:layout_margin="10dp"
-            android:singleLine="true"/>
-
-        <TextView
-            android:layout_marginTop="70dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/red"
-            android:id="@+id/browseOption"
-            android:textSize="20sp"
-            android:text="@string/browse_files"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_load"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/fab_margin"
-            android:src="@drawable/ic_menu_archive"
-            android:onClick="browseFileSystem"
-            android:tint="@color/colorHint"
-            android:tintMode="multiply"
-            android:background="@color/colorBackground"
-            android:elevation="10dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
+            android:singleLine="true" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:gravity="end"
             android:weightSum="1">
 
             <Button
@@ -134,4 +151,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

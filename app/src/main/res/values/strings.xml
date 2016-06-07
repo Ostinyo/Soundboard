@@ -43,9 +43,10 @@
     <string name="button_color_select_text">Select a Color</string>
 
     <string name="record_help_text">Press and hold to record a sound</string>
-    <string name="edit_text">Edit file name here</string>
+    <string name="edit_filename">Edit file name here</string>
+    <string name="edit_name">Give your button a name!</string>
     <string name="browse_files">Or browse existing files</string>
-    <string name="sound_preview">Preview your recording here</string>
+    <string name="sound_preview">Preview your sound here</string>
     <string name="edit_mode">Mode: Edit. Choose the button you wish to edit</string>
     <string name="play_mode">Mode: Play</string>
 </resources>
