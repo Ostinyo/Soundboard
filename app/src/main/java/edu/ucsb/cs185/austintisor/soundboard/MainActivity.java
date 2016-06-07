@@ -109,17 +109,15 @@ public class MainActivity extends AppCompatActivity
                 onNewButton();
                 return true;
             case R.id.action_edit_buttons:
+                TextView textView;
+                textView = (TextView) findViewById(R.id.text_mode);
                 if (editing) {
                     item.setIcon(R.drawable.ic_menu_edit);
-                    TextView textView;
-                    textView = (TextView) findViewById(R.id.mode);
                     textView.setText(R.string.play_mode);
                     editing = false;
                 }
                 else {
                     item.setIcon(R.drawable.ic_menu_play_clip);
-                    TextView textView;
-                    textView = (TextView) findViewById(R.id.mode);
                     textView.setText(R.string.edit_mode);
                     editing = true;
                 }
