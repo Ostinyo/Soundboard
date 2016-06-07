@@ -27,6 +27,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +44,7 @@ public class MainActivity extends AppCompatActivity
     private static final int NEW_BUTTON_INTENT = 3, EDIT_BUTTON_INTENT = 5;
     private static final int SELECT_BOARD = 4;
     public static final String FILENAME_EXTRA = "filename", NAME_EXTRA = "name", COLOR_EXTRA = "color";
-    public static final String EDIT_SOUND = "edit_filename";
+    public static final String EDIT_SOUND = "edit_filename"; // May not need this, use editing boolean instead
 
     private boolean editing = false;
 
@@ -67,9 +73,10 @@ public class MainActivity extends AppCompatActivity
 
     @TargetApi(Build.VERSION_CODES.M)
     private void askPermissions(){
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED  ) {
-            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    PERMISSIONS_REQUEST);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST);
         }
     }
 
@@ -196,6 +203,26 @@ public class MainActivity extends AppCompatActivity
 
                 //mAdapter.editButton();
             }
+        }
+    }
+
+    public void loadBoard () {
+        FileInputStream is;
+        BufferedReader reader;
+        final File file = new File("/sdcard/text.txt");
+
+        if (file.exists()) {
+            try {
+                is = new FileInputStream(file);
+                reader = new BufferedReader(new InputStreamReader(is));
+                try { // SO MANY TRIES
+                    String line = reader.readLine();
+                    while (line != null) {
+                        Log.d("Board file", line);
+                        line = reader.readLine();
+                    }
+                } catch (IOException e) { e.printStackTrace(); }
+            } catch (FileNotFoundException e) { e.printStackTrace(); }
         }
     }
 }

@@ -29,28 +29,37 @@ public class ImageAdapter extends BaseAdapter {
             Log.d("ImageAdapter", "constructor");
 
             // Sketchily add default colors
-            if (buttonColors.size() < 9) {
+            //if (buttonColors.size() < 9) {
                 switch (i) {
                     case 0:
                         buttonColors.add(Color.BLUE); //(context.getResources().getColor(R.color.default1));
+                        break;
                     case 1:
                         buttonColors.add(Color.DKGRAY);
+                        break;
                     case 2:
                         buttonColors.add(Color.YELLOW);
+                        break;
                     case 3:
                         buttonColors.add(Color.GREEN);
+                        break;
                     case 4:
                         buttonColors.add(Color.MAGENTA);
+                        break;
                     case 5:
                         buttonColors.add(Color.BLACK);
+                        break;
                     case 6:
                         buttonColors.add(Color.RED);
+                        break;
                     case 7:
                         buttonColors.add(Color.CYAN);
+                        break;
                     case 8:
                         buttonColors.add(Color.WHITE);
+                        break;
                 }
-            }
+            //}
         }
     }
 
@@ -81,7 +90,7 @@ public class ImageAdapter extends BaseAdapter {
         else if (position == 3)
             soundButton.setRawSound(R.raw.guitar1);
         else if (position == 4)
-            soundButton.setRawSound(R.raw.drum1);
+            soundButton.setRawSound(R.raw.piano_melody1);
         else if (position == 5)
             soundButton.setRawSound(R.raw.violin1);
         else if (position == 6)

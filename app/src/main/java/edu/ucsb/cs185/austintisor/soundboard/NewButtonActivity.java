@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.MediaRecorder;
@@ -14,7 +15,9 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -90,23 +93,50 @@ public class NewButtonActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-
             case SELECT_SOUND:
                 if (resultCode == RESULT_OK && data != null) {
-                    mFilename = data.getData().getPath();
-                    setFilenameText(mFilename);
+                    // Get the Uri of the selected file
+                    Uri uri = data.getData();
+                    String uriString = uri.toString();
+                    File file = new File(uriString);
+                    String path = file.getAbsolutePath();
+                    String displayName = null;
+
+                    // Query a content resolver to get the file display name
+                    if (uriString.startsWith("content://")) {
+                        Cursor cursor = null;
+                        try {
+                            cursor = this.getContentResolver().query(uri, null, null, null, null);
+                            if (cursor != null && cursor.moveToFirst()) {
+                                displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                            }
+                        } finally {
+                            cursor.close();
+                        }
+                    } else if (uriString.startsWith("file://")) {
+                        displayName = file.getName();
+                    }
+
+                    //mFilename = data.getData().getPath();
+                    //mFilename = Environment.getExternalStorageDirectory() + "/yourfolderNAme/yourfile.mp3" + path;
+                    //mFilename = filePath;
+                    mFilename = path;
+                    setFilenameText(displayName);
                     activatePlay();
                     Log.d("Select sound", "SELECTED");
                     Log.d("Filename result", mFilename);
                 }
                 else if (resultCode == RESULT_CANCELED)
                     Log.d("Select sound", "CANCELED");
+                break;
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void browseFileSystem (View v) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("file/*");
+        intent.setType("audio/*");
         startActivityForResult(intent, SELECT_SOUND);
     }
 
