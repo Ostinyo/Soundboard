@@ -6,12 +6,9 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

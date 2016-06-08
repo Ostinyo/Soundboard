@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.Button;
@@ -14,7 +13,7 @@ import android.view.View.OnClickListener;
 import android.net.Uri;
 
 import java.io.IOException;
-import java.io.InputStream;
+
 
 public class SoundButton extends Button implements OnClickListener {
 

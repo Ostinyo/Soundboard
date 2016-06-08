@@ -1,28 +1,16 @@
 package edu.ucsb.cs185.austintisor.soundboard;
 
 
-import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.media.MediaRecorder;
 import android.os.Environment;
-import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
-import android.provider.OpenableColumns;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +30,6 @@ public class NewButtonActivity extends AppCompatActivity {
     private static final int SELECT_SOUND = 2;
     public static final String STRING_EXTRA = "filename";
 
-    private final String FOLDER = "Soundboard";
     private static String mFilename = null, mName = "";
     private Uri mFileUri;
     private int mIndex = 0;
@@ -156,7 +143,7 @@ public class NewButtonActivity extends AppCompatActivity {
     }
 
     private void setNextFilename() {
-        mFilename = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + FOLDER;
+        mFilename = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + MainActivity.FOLDER;
 
         //if folder does not exist
         File folder = new File(mFilename);
@@ -309,7 +296,7 @@ public class NewButtonActivity extends AppCompatActivity {
 
     private void saveFile(){
         File old = new File(mFilename);
-        String newFileString = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + FOLDER + File.separator + mFilenameText.getText();
+        String newFileString = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + MainActivity.FOLDER + File.separator + mFilenameText.getText();
         File newF = new File(newFileString);
         old.renameTo(newF);
     }

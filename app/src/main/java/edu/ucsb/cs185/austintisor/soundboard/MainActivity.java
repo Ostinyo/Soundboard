@@ -2,17 +2,13 @@ package edu.ucsb.cs185.austintisor.soundboard;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Dialog;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,20 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,10 +29,9 @@ public class MainActivity extends AppCompatActivity
     private static final int NEW_BUTTON_INTENT = 3, EDIT_BUTTON_INTENT = 5;
     private static final int SELECT_BOARD = 4;
     public static final String FILENAME_EXTRA = "filename", URI_EXTRA = "uri", NAME_EXTRA = "name", COLOR_EXTRA = "color", INDEX_EXTRA = "index";
-    public static final String EDIT_SOUND = "edit_filename"; // May not need this, use editing boolean instead
+    public static final String FOLDER = "Soundboard";
 
     private ImageAdapter mAdapter;
-    private Board mBoard;
     private boolean editing = false;
 
     @Override
@@ -69,7 +53,6 @@ public class MainActivity extends AppCompatActivity
         askPermissions();
 
         final GridView gridView = (GridView) findViewById(R.id.boardGrid);
-        mBoard = new Board(this);
         mAdapter = new ImageAdapter(this);
         gridView.setAdapter(mAdapter);
     }
@@ -127,17 +110,19 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_new) {
             // Create a new board (future possibility)
-            mAdapter.clear();
+            Toast.makeText(this, "This feature is not yet implemented!", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_clear) {
             // Clear the board
             mAdapter.clear();
         } else if (id == R.id.nav_load) {
             // Launch load dialogue fragment/file system
             browseFileSystem();
+            Toast.makeText(this, "This feature is not yet implemented!", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_save) {
             // Launch save dialogue fragment
             SaveBoardFragment saveBoardFragment = new SaveBoardFragment();
             saveBoardFragment.show(getFragmentManager(), "save_board_fragment");
+            Toast.makeText(this, "This feature is not yet implemented!", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -147,7 +132,8 @@ public class MainActivity extends AppCompatActivity
 
     public void browseFileSystem () {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("file/*");
+        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/" + FOLDER + "/");
+        intent.setDataAndType(uri, "text/sbs");
         startActivityForResult(intent, SELECT_BOARD);
     }
 
@@ -157,17 +143,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onEditButtons(MenuItem item) {
-        //TextView textView;
-        //textView = (TextView) findViewById(R.id.text_mode);
 
         if (editing) {
             item.setIcon(R.drawable.ic_menu_edit);
-            //textView.setText(R.string.play_mode);
             editing = false;
         }
         else {
             item.setIcon(R.drawable.ic_menu_play_clip);
-            //textView.setText(R.string.edit_mode);
             editing = true;
         }
         mAdapter.setEditing(editing);
