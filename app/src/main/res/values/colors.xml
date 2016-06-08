@@ -9,6 +9,7 @@
     <color name="colorTintBackground">#E6E6E6</color>
 
     <color name="textPrimary">#f1f1f1</color>
+    <color name="textSecondary">#010101</color>
 
     <color name="default1">#3C25CF</color>
     <color name="default2">#D9230F</color>
@@ -24,4 +25,6 @@
     <color name="default12">#F5F58C</color>
     <color name="default13">#A3711A</color>
     <color name="default14">#DDDDDD</color>
+    <color name="default15">#FF6969</color>
+    <color name="default16">#878FFF</color>
 </resources>

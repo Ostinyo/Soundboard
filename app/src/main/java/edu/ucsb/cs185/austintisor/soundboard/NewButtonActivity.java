@@ -57,7 +57,7 @@ public class NewButtonActivity extends AppCompatActivity {
     private ImageButton mDoneButton;
     private Button mColorSelectButton;
 
-    private EditText mFilenameText;
+    private EditText mFilenameText, mNameText;
 
     private static final String LOG_TAG = "NewButtonActivity";
     private static final int TINT_COLOR = Color.argb(120, 0, 0, 255);
@@ -92,6 +92,11 @@ public class NewButtonActivity extends AppCompatActivity {
         mColorSelectButton.setBackgroundColor(mColor);
 
         mFilenameText = (EditText)findViewById(R.id.filename_text);
+        mNameText = (EditText)findViewById(R.id.name_text);
+
+        // Apply values for editing
+        setNameText(mName);
+        if(mFilename != null || mFileUri != null) activatePlay();
     }
 
     @Override
@@ -249,6 +254,10 @@ public class NewButtonActivity extends AppCompatActivity {
         mFilenameText.setText(path.substring(path.lastIndexOf(File.separator) + 1));
     }
 
+    private void setNameText(String name) {
+        mNameText.setText(name);
+    }
+
     private void activatePlay() {
         mPlayButton.setEnabled(true);
         mPlayButton.setColorFilter(PLAY_TINT, PorterDuff.Mode.MULTIPLY);
@@ -282,7 +291,7 @@ public class NewButtonActivity extends AppCompatActivity {
 
     //Credit: https://github.com/xdtianyu/ColorPicker
     public void selectColor(View view) {
-        int[] colorArray = {getResources().getColor(R.color.default1), getResources().getColor(R.color.default2), getResources().getColor(R.color.default3), getResources().getColor(R.color.default4), getResources().getColor(R.color.default5), getResources().getColor(R.color.default6), getResources().getColor(R.color.default7), getResources().getColor(R.color.default8), getResources().getColor(R.color.default9), getResources().getColor(R.color.default10)};
+        int[] colorArray = {getResources().getColor(R.color.default1), getResources().getColor(R.color.default2), getResources().getColor(R.color.default3), getResources().getColor(R.color.default4), getResources().getColor(R.color.default5), getResources().getColor(R.color.default6), getResources().getColor(R.color.default7), getResources().getColor(R.color.default8), getResources().getColor(R.color.default9), getResources().getColor(R.color.default10), getResources().getColor(R.color.default11), getResources().getColor(R.color.default12), getResources().getColor(R.color.default13), getResources().getColor(R.color.default14), getResources().getColor(R.color.default15), getResources().getColor(R.color.default16)};
         ColorPickerDialog colors = ColorPickerDialog.newInstance(R.string.color_picker,
                 colorArray,
                 mColor,

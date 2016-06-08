@@ -163,5 +163,6 @@ public class ImageAdapter extends BaseAdapter {
         buttonUris.set(position, uri);
         buttonNames.set(position, name);
         buttonColors.set(position, color);
+        notifyDataSetChanged();
     }
 }
