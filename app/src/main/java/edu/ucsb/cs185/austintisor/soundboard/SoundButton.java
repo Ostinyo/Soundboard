@@ -43,7 +43,7 @@ public class SoundButton extends Button implements OnClickListener {
     public void init (Context context) {
         c = context;
         setOnClickListener(this);
-        mediaPlayer = MediaPlayer.create(context, rawSound); // Temporarily set to drum1
+        mediaPlayer = MediaPlayer.create(context, rawSound);
         setDimens(size);
         //setBackgroundResource(R.drawable.button_style);
     }
