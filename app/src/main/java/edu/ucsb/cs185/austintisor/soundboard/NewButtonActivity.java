@@ -76,6 +76,7 @@ public class NewButtonActivity extends AppCompatActivity {
         });
 
         mColorSelectButton = (Button)findViewById(R.id.button_color_select);
+        mColor = getResources().getColor(R.color.default2);
         mColorSelectButton.setBackgroundColor(mColor);
 
         mFilenameText = (EditText)findViewById(R.id.filename_text);

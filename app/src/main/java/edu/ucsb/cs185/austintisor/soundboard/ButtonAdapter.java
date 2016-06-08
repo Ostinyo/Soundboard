@@ -12,7 +12,7 @@ import android.widget.GridView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageAdapter extends BaseAdapter {
+public class ButtonAdapter extends BaseAdapter {
 
     private Context context;
     List<String> buttonFiles = new ArrayList<>();
@@ -21,42 +21,49 @@ public class ImageAdapter extends BaseAdapter {
     List<Integer> buttonColors = new ArrayList<>();
     List<SoundButton> soundButtons = new ArrayList<>();
 
-    public ImageAdapter(Context c){
+    public ButtonAdapter(Context c){
         context = c;
         for(int i = 0; i < 9; i++) {
             buttonFiles.add(null);
             buttonUris.add(null);
-            buttonNames.add(""); // Replace with board loading
-            Log.d("ImageAdapter", "constructor");
 
-            // Add default colors
+            // Add default names and colors
             switch (i) {
                 case 0:
-                    buttonColors.add(Color.BLUE); //(context.getResources().getColor(R.color.default1));
+                    buttonNames.add("Drum 1");
+                    buttonColors.add(c.getResources().getColor(R.color.default1));
                     break;
                 case 1:
-                    buttonColors.add(Color.DKGRAY);
+                    buttonNames.add("Drum 2");
+                    buttonColors.add(c.getResources().getColor(R.color.default2));
                     break;
                 case 2:
-                    buttonColors.add(Color.YELLOW);
+                    buttonNames.add("Drum 3");
+                    buttonColors.add(c.getResources().getColor(R.color.default3));
                     break;
                 case 3:
-                    buttonColors.add(Color.GREEN);
+                    buttonNames.add("Guitar");
+                    buttonColors.add(c.getResources().getColor(R.color.default4));
                     break;
                 case 4:
-                    buttonColors.add(Color.MAGENTA);
+                    buttonNames.add("Piano");
+                    buttonColors.add(c.getResources().getColor(R.color.default5));
                     break;
                 case 5:
-                    buttonColors.add(Color.BLACK);
+                    buttonNames.add("Violin");
+                    buttonColors.add(c.getResources().getColor(R.color.default6));
                     break;
                 case 6:
-                    buttonColors.add(Color.RED);
+                    buttonNames.add("Whistle");
+                    buttonColors.add(c.getResources().getColor(R.color.default7));
                     break;
                 case 7:
-                    buttonColors.add(Color.CYAN);
+                    buttonNames.add("Applause");
+                    buttonColors.add(c.getResources().getColor(R.color.default8));
                     break;
                 case 8:
-                    buttonColors.add(Color.WHITE);
+                    buttonNames.add("Bird Chirp");
+                    buttonColors.add(c.getResources().getColor(R.color.default9));
                     break;
             }
         }
@@ -69,7 +76,6 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("getView", "Called!");
         SoundButton soundButton;
         if (convertView == null)
             soundButton = createButton(position);
@@ -81,13 +87,13 @@ public class ImageAdapter extends BaseAdapter {
         soundButton.setUri(buttonUris.get(position));
         soundButton.setIndex(position);
 
-        // Sketchily make the default board work, this will overwrite a new board
+        // Set default board sounds
         if (position == 0)
             soundButton.setRawSound(R.raw.drum1);
         else if (position == 1)
             soundButton.setRawSound(R.raw.drum2);
         else if (position == 2)
-            soundButton.setRawSound(R.raw.whistle);
+            soundButton.setRawSound(R.raw.drum3);
         else if (position == 3)
             soundButton.setRawSound(R.raw.guitar1);
         else if (position == 4)
@@ -101,16 +107,13 @@ public class ImageAdapter extends BaseAdapter {
         else if (position == 8)
             soundButton.setRawSound(R.raw.bird);
 
-        Log.d("Button position", Integer.toString(position));
         soundButtons.add(position, soundButton);
-        Log.d("SoundButtons size", Integer.toString(soundButtons.size()));
         return soundButton;
     }
 
     public SoundButton createButton (int position) {
-        Log.d("CreateButton", "Called!");
         final SoundButton soundButton = new SoundButton(context);
-        soundButton.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.WRAP_CONTENT,GridView.LayoutParams.WRAP_CONTENT)); //(new GridView.LayoutParams(250,250)); // Change to size preference
+        soundButton.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.WRAP_CONTENT,GridView.LayoutParams.WRAP_CONTENT));
         soundButton.setPadding(5, 5, 5, 5);
 
         return soundButton;

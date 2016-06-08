@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     public static final String FOLDER = "Soundboard";
     public static final int MIN_SIZE = 150;
 
-    private ImageAdapter mAdapter;
+    private ButtonAdapter mAdapter;
     private boolean editing = false;
     private int size = 250;
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         askPermissions();
 
         final GridView gridView = (GridView) findViewById(R.id.boardGrid);
-        mAdapter = new ImageAdapter(this);
+        mAdapter = new ButtonAdapter(this);
         gridView.setAdapter(mAdapter);
     }
 

@@ -3,6 +3,7 @@ package edu.ucsb.cs185.austintisor.soundboard;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -44,6 +45,7 @@ public class SoundButton extends Button implements OnClickListener {
         setOnClickListener(this);
         mediaPlayer = MediaPlayer.create(context, rawSound); // Temporarily set to drum1
         setDimens(size);
+        //setBackgroundResource(R.drawable.button_style);
     }
 
     public void setSize (int s) {
