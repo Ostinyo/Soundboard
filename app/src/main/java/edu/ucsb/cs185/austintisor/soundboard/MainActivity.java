@@ -40,13 +40,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ImageAdapter mAdapter;
     private static final int PERMISSIONS_REQUEST = 2;
     private static final int NEW_BUTTON_INTENT = 3, EDIT_BUTTON_INTENT = 5;
     private static final int SELECT_BOARD = 4;
-    public static final String FILENAME_EXTRA = "filename", NAME_EXTRA = "name", COLOR_EXTRA = "color";
+    public static final String FILENAME_EXTRA = "filename", URI_EXTRA = "uri", NAME_EXTRA = "name", COLOR_EXTRA = "color";
     public static final String EDIT_SOUND = "edit_filename"; // May not need this, use editing boolean instead
 
+    private ImageAdapter mAdapter;
+    private Board mBoard;
     private boolean editing = false;
 
     @Override
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         askPermissions();
 
         final GridView gridView = (GridView) findViewById(R.id.boardGrid);
+        mBoard = new Board(this);
         mAdapter = new ImageAdapter(this);
         gridView.setAdapter(mAdapter);
     }
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_edit_buttons:
                 TextView textView;
                 textView = (TextView) findViewById(R.id.text_mode);
+                //boolean editing = mBoard.isEditing();
                 if (editing) {
                     item.setIcon(R.drawable.ic_menu_edit);
                     textView.setText(R.string.play_mode);
@@ -122,6 +125,7 @@ public class MainActivity extends AppCompatActivity
                     textView.setText(R.string.edit_mode);
                     editing = true;
                 }
+                //mBoard.setEditing(editing);
                 mAdapter.setEditing(editing);
                 // We should tint the edit icon here
                 return true;
@@ -167,66 +171,43 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(intent, NEW_BUTTON_INTENT);
     }
 
-    public void onEditButton(View view) {
-        final ButtonFragment buttonFragment = new ButtonFragment();
-        buttonFragment.setButtonSetListener(new ButtonFragment.OnButtonSetListener() {
-            @Override
-            public void onButtonSet(String name, String filename, int color) {
-                // Do stuff with the set values
-            }
-        });
-
-        //Show the fragment
-        buttonFragment.show(getFragmentManager(), "edit_button");
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == NEW_BUTTON_INTENT){
             if(resultCode == RESULT_OK){
                 String filename = data.getStringExtra(FILENAME_EXTRA);
-                Uri TEMP = data.getData(); //here Austin!
+                Uri uri = data.getParcelableExtra(URI_EXTRA);
+                //String uri = data.getStringExtra(URI_EXTRA);
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
                 String name = data.getStringExtra(NAME_EXTRA);
 
-                mAdapter.addButton(filename, name, color);
+                mAdapter.addButton(filename, uri, name, color);
+
+                // Logging
                 Log.d("Color", Integer.toString(color));
-                if(filename != null) {
-                    Log.d("Filename", filename);
-                }
+                if(filename != null) Log.d("Filename", filename);
+                if (uri != null) Log.d("Uri", uri.toString());
                 Log.d("Name", name);
             }
         } else if (requestCode == EDIT_BUTTON_INTENT) {
             if (resultCode == RESULT_OK) {
                 // Change the button data
-
-                Uri TEMP = data.getData(); //here Austin!
                 String filename = data.getStringExtra(FILENAME_EXTRA);
+                Uri uri = data.getParcelableExtra(URI_EXTRA);
+                //String uri = data.getStringExtra(URI_EXTRA);
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
                 String name = data.getStringExtra(NAME_EXTRA);
+                int index = 0;
 
-                //mAdapter.editButton();
+                mAdapter.editButton(index, filename, uri, name, color); // We'll need to save the index for this
+
+                // Logging
+                Log.d("Edit Button", "Requested");
+                Log.d("Color", Integer.toString(color));
+                if(filename != null) Log.d("Filename", filename);
+                if (uri != null) Log.d("Uri", uri.toString());
+                Log.d("Name", name);
             }
-        }
-    }
-
-    public void loadBoard () {
-        FileInputStream is;
-        BufferedReader reader;
-        final File file = new File("/sdcard/text.txt");
-
-        if (file.exists()) {
-            try {
-                is = new FileInputStream(file);
-                reader = new BufferedReader(new InputStreamReader(is));
-                try { // SO MANY TRIES
-                    String line = reader.readLine();
-                    while (line != null) {
-                        Log.d("Board file", line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException e) { e.printStackTrace(); }
-            } catch (FileNotFoundException e) { e.printStackTrace(); }
         }
     }
 }

@@ -2,13 +2,16 @@ package edu.ucsb.cs185.austintisor.soundboard;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,7 @@ public class ImageAdapter extends BaseAdapter {
 
     private Context context;
     List<String> buttonFiles = new ArrayList<>();
+    List<Uri> buttonUris = new ArrayList<>();
     List<String> buttonNames = new ArrayList<>();
     List<Integer> buttonColors = new ArrayList<>();
     List<SoundButton> soundButtons = new ArrayList<>();
@@ -23,43 +27,41 @@ public class ImageAdapter extends BaseAdapter {
     public ImageAdapter(Context c){
         context = c;
         for(int i = 0; i < 9; i++) {
-            buttonFiles.add("filename");
+            buttonFiles.add(null);
+            buttonUris.add(null);
             buttonNames.add(""); // Replace with board loading
-            //buttonColors.add(Color.RED);
             Log.d("ImageAdapter", "constructor");
 
-            // Sketchily add default colors
-            //if (buttonColors.size() < 9) {
-                switch (i) {
-                    case 0:
-                        buttonColors.add(Color.BLUE); //(context.getResources().getColor(R.color.default1));
-                        break;
-                    case 1:
-                        buttonColors.add(Color.DKGRAY);
-                        break;
-                    case 2:
-                        buttonColors.add(Color.YELLOW);
-                        break;
-                    case 3:
-                        buttonColors.add(Color.GREEN);
-                        break;
-                    case 4:
-                        buttonColors.add(Color.MAGENTA);
-                        break;
-                    case 5:
-                        buttonColors.add(Color.BLACK);
-                        break;
-                    case 6:
-                        buttonColors.add(Color.RED);
-                        break;
-                    case 7:
-                        buttonColors.add(Color.CYAN);
-                        break;
-                    case 8:
-                        buttonColors.add(Color.WHITE);
-                        break;
-                }
-            //}
+            // Add default colors
+            switch (i) {
+                case 0:
+                    buttonColors.add(Color.BLUE); //(context.getResources().getColor(R.color.default1));
+                    break;
+                case 1:
+                    buttonColors.add(Color.DKGRAY);
+                    break;
+                case 2:
+                    buttonColors.add(Color.YELLOW);
+                    break;
+                case 3:
+                    buttonColors.add(Color.GREEN);
+                    break;
+                case 4:
+                    buttonColors.add(Color.MAGENTA);
+                    break;
+                case 5:
+                    buttonColors.add(Color.BLACK);
+                    break;
+                case 6:
+                    buttonColors.add(Color.RED);
+                    break;
+                case 7:
+                    buttonColors.add(Color.CYAN);
+                    break;
+                case 8:
+                    buttonColors.add(Color.WHITE);
+                    break;
+            }
         }
     }
 
@@ -79,6 +81,7 @@ public class ImageAdapter extends BaseAdapter {
         soundButton.setColor(buttonColors.get(position));
         soundButton.setName(buttonNames.get(position));
         soundButton.setFile(buttonFiles.get(position));
+        soundButton.setUri(buttonUris.get(position));
 
         // Sketchily make the default board work, this will overwrite a new board
         if (position == 0)
@@ -99,16 +102,17 @@ public class ImageAdapter extends BaseAdapter {
             soundButton.setRawSound(R.raw.applause);
         else if (position == 8)
             soundButton.setRawSound(R.raw.bird);
-        Log.d("Button position", Integer.toString(position));
 
-        soundButtons.add(soundButton);
+        Log.d("Button position", Integer.toString(position));
+        soundButtons.add(position, soundButton);
+        Log.d("SoundButtons size", Integer.toString(soundButtons.size()));
         return soundButton;
     }
 
     public SoundButton createButton (int position) {
         Log.d("CreateButton", "Called!");
         final SoundButton soundButton = new SoundButton(context);
-        soundButton.setLayoutParams(new GridView.LayoutParams(250,250)); // Change to size preference
+        soundButton.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.WRAP_CONTENT,GridView.LayoutParams.WRAP_CONTENT)); //(new GridView.LayoutParams(250,250)); // Change to size preference
         soundButton.setPadding(5, 5, 5, 5);
 
         return soundButton;
@@ -124,10 +128,14 @@ public class ImageAdapter extends BaseAdapter {
         return buttonFiles.get(position);
     }
 
-    public void addButton (String filename, String name, int color) {
+    public void addButton (String filename, Uri uri, String name, int color) {
         buttonFiles.add(filename);
+        buttonUris.add(uri);
         buttonNames.add(name);
         buttonColors.add(color);
+        /*List<SoundButton> soundButtons = MainActivity.mBoard.soundButtons;
+        soundButtons.add(new SoundButton(context));
+        Log.d("soundButtons size", Integer.toString(soundButtons.size()));*/
         notifyDataSetChanged();
     }
 
@@ -135,6 +143,7 @@ public class ImageAdapter extends BaseAdapter {
         buttonFiles.clear();
         buttonNames.clear();
         buttonColors.clear();
+        stopPlaying();
         notifyDataSetChanged();
     }
 
@@ -144,7 +153,14 @@ public class ImageAdapter extends BaseAdapter {
         }
     }
 
-    public void editButton (int position, String filename, String name, int color) {
+    public void stopPlaying () {
+        for (SoundButton s : soundButtons) {
+            s.stopSound();
+        }
+    }
+
+    public void editButton (int position, String filename, Uri uri, String name, int color) {
         // Replace the button in this position
+
     }
 }

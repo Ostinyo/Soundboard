@@ -3,6 +3,7 @@ package edu.ucsb.cs185.austintisor.soundboard;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -43,7 +44,19 @@ public class SoundButton extends Button implements OnClickListener {
         c = context;
         setOnClickListener(this);
         mediaPlayer = MediaPlayer.create(context, rawSound); // Temporarily set to drum1
+        setDimens(250);
     }
+
+    public void setDimens (int p) {
+        this.setWidth(p);
+        this.setHeight(p);
+    }
+
+    /*
+    @Override
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+    }*/
 
     @Override
     public void onClick (View v) {
@@ -65,25 +78,61 @@ public class SoundButton extends Button implements OnClickListener {
 
     public void setFile (String file) {
         soundFile = file;
-        try {
-            mediaPlayer.reset();
-            mediaPlayer.setDataSource(file);
-            mediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (soundFile != null) {
+            try {
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(soundFile);
+                mediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("File set to", soundFile);
         }
-        Log.d("File set to", file);
+    }
+
+    public void setUri (Uri uri) {
+        soundUri = uri;
+        if (soundUri != null) {
+            try {
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(c, soundUri);
+                mediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("Uri set to", soundUri.toString());
+        }
+    }
+
+    // Overload for string
+    public void setUri (String uri) {
+        if (uri != null) {
+            soundUri = Uri.parse(uri);
+            try {
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(c, soundUri);
+                mediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("Uri set to", uri);
+        }
     }
 
     public void playSound () {
         mediaPlayer.release();
         mediaPlayer = new MediaPlayer();
         try {
-            if (soundFile != "filename") {
+            if (soundFile != null) {
                 mediaPlayer.setDataSource(soundFile);
                 mediaPlayer.prepare();
             }
-            else {
+            else if (soundUri != null) {
+                //mediaPlayer.create(c, soundUri);
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mediaPlayer.setDataSource(c, soundUri);
+                mediaPlayer.prepare();
+            } else {
                 //InputStream ins = getResources().openRawResource(rawSound);
                 mediaPlayer = MediaPlayer.create(c, rawSound);
                 //ins.close();

@@ -39,9 +39,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 public class NewButtonActivity extends AppCompatActivity {
-    private static final int ACTIVITY_RECORD_SOUND = 1, SELECT_SOUND = 2;
+    private static final int SELECT_SOUND = 2;
     public static final String STRING_EXTRA = "filename";
-    Uri savedUri;
 
     private final String FOLDER = "Soundboard";
     private static String mFilename = null, mName = "";
@@ -94,27 +93,30 @@ public class NewButtonActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-
-            case SELECT_SOUND:
-                if (resultCode == RESULT_OK && data != null) {
-                    mFileUri = data.getData();
-                    mFilename = mFileUri.getPath();
-                    setFilenameText(mFilename);
-                    activatePlay();
-                    Log.d("Select sound", "SELECTED");
-                    Log.d("Filename result", mFilename);
-                }
-                else if (resultCode == RESULT_CANCELED)
-                    Log.d("Select sound", "CANCELED");
+        if (requestCode == SELECT_SOUND) {
+            if (resultCode == RESULT_OK && data != null) {
+                mFileUri = data.getData();
+                mFilename = mFileUri.getPath();
+                setFilenameText(""); // Clear any recorded file name
+                activatePlay();
+                Log.d("Select sound", "SELECTED");
+                Log.d("Uri result", mFileUri.toString());
+            }
+            else if (resultCode == RESULT_CANCELED)
+                Log.d("Select sound", "CANCELED");
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public void onBackPressed() {
+        stopPlaying();
+        super.onBackPressed();
+    }
+
     public void browseFileSystem (View v) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        //intent.setType("file/*");
         intent.setType("audio/*");
         startActivityForResult(intent, SELECT_SOUND);
     }
@@ -195,7 +197,8 @@ public class NewButtonActivity extends AppCompatActivity {
     }
 
     private void stopPlaying() {
-        mPlayer.release();
+        if (mPlayer != null && mPlayer.isPlaying())
+            mPlayer.release();
         mPlayer = null;
     }
 
@@ -245,14 +248,17 @@ public class NewButtonActivity extends AppCompatActivity {
     }
 
     private void onDone() {
-        if (mFilename != null) {
-            saveFile();
+        stopPlaying();
+        if (mFilename != null || mFileUri != null) {
             Intent intent = new Intent();
             if(mFileUri != null){
-                intent.setData(mFileUri);
+                intent.putExtra(MainActivity.URI_EXTRA, mFileUri);
+                //intent.setData(mFileUri);
             }else{
+                saveFile();
                 intent.putExtra(MainActivity.FILENAME_EXTRA, mFilename);
             }
+            mName = ((EditText) findViewById(R.id.name_text)).getText().toString();
             intent.putExtra(MainActivity.NAME_EXTRA, mName);
             intent.putExtra(MainActivity.COLOR_EXTRA, mColor);
             setResult(RESULT_OK, intent);

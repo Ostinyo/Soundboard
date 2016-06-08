@@ -8,6 +8,8 @@
     <color name="colorHint">#CCCCCC</color>
     <color name="colorTintBackground">#E6E6E6</color>
 
+    <color name="textPrimary">#f1f1f1</color>
+
     <color name="default1">#3C25CF</color>
     <color name="default2">#D9230F</color>
     <color name="default3">#A70FD9</color>
