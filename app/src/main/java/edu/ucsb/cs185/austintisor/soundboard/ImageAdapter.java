@@ -148,6 +148,12 @@ public class ImageAdapter extends BaseAdapter {
         }
     }
 
+    public void setSize (int size) {
+        for (SoundButton s : soundButtons) {
+            s.setSize(size);
+        }
+    }
+
     public void stopPlaying () {
         for (SoundButton s : soundButtons) {
             s.stopSound();

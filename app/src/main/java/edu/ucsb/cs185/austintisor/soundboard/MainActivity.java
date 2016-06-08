@@ -29,10 +29,13 @@ public class MainActivity extends AppCompatActivity
     private static final int NEW_BUTTON_INTENT = 3, EDIT_BUTTON_INTENT = 5;
     private static final int SELECT_BOARD = 4;
     public static final String FILENAME_EXTRA = "filename", URI_EXTRA = "uri", NAME_EXTRA = "name", COLOR_EXTRA = "color", INDEX_EXTRA = "index";
+    public static final String SETTINGS_SIZE = "size";
     public static final String FOLDER = "Soundboard";
+    public static final int MIN_SIZE = 150;
 
     private ImageAdapter mAdapter;
     private boolean editing = false;
+    private int size = 250;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,9 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.action_settings:
                 SettingsFragment settingsFragment = new SettingsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(SETTINGS_SIZE, size);
+                settingsFragment.setArguments(bundle);
                 settingsFragment.show(getFragmentManager(), "settings_fragment");
                 return true;
             case R.id.action_add_button:
@@ -130,31 +136,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void browseFileSystem () {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/" + FOLDER + "/");
-        intent.setDataAndType(uri, "text/sbs");
-        startActivityForResult(intent, SELECT_BOARD);
-    }
-
-    public void onNewButton() {
-        Intent intent = new Intent(this, NewButtonActivity.class);
-        startActivityForResult(intent, NEW_BUTTON_INTENT);
-    }
-
-    public void onEditButtons(MenuItem item) {
-
-        if (editing) {
-            item.setIcon(R.drawable.ic_menu_edit);
-            editing = false;
-        }
-        else {
-            item.setIcon(R.drawable.ic_menu_play_clip);
-            editing = true;
-        }
-        mAdapter.setEditing(editing);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == NEW_BUTTON_INTENT){
@@ -191,5 +172,35 @@ public class MainActivity extends AppCompatActivity
                 Log.d("Name", name);
             }
         }
+    }
+
+    public void browseFileSystem () {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/" + FOLDER + "/");
+        intent.setDataAndType(uri, "text/sbs");
+        startActivityForResult(intent, SELECT_BOARD);
+    }
+
+    public void onNewButton () {
+        Intent intent = new Intent(this, NewButtonActivity.class);
+        startActivityForResult(intent, NEW_BUTTON_INTENT);
+    }
+
+    public void onEditButtons (MenuItem item) {
+
+        if (editing) {
+            item.setIcon(R.drawable.ic_menu_edit);
+            editing = false;
+        }
+        else {
+            item.setIcon(R.drawable.ic_menu_play_clip);
+            editing = true;
+        }
+        mAdapter.setEditing(editing);
+    }
+
+    public void setSize (int s) {
+        size = s;
+        mAdapter.setSize(size);
     }
 }

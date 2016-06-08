@@ -7,10 +7,7 @@ import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.app.DialogFragment;
-import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -31,11 +28,16 @@ public class SettingsFragment extends DialogFragment {
         //Get any Views you need (Any local variables accessed from inside an anonymous inner class must be final)
         volumeSlider = (SeekBar) contentView.findViewById(R.id.volume_slider);
         sizeSlider = (SeekBar) contentView.findViewById(R.id.size_slider);
+
         AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         final int maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         final int curVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
         volumeSlider.setMax(maxVolume);
         volumeSlider.setProgress(curVolume);
+
+        // Get passed arguments
+        int size = getArguments().getInt(MainActivity.SETTINGS_SIZE);
+        sizeSlider.setProgress((int)((size - MainActivity.MIN_SIZE)/50));
 
         //Pass your data to the builder (these can be chained)
         builder.setView(contentView)
@@ -45,6 +47,8 @@ public class SettingsFragment extends DialogFragment {
                         setListeners();
                         AudioManager bm = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
                         bm.setStreamVolume(AudioManager.STREAM_MUSIC, volumeSlider.getProgress(),0);
+
+                        ((MainActivity)getActivity()).setSize(sizeSlider.getProgress()*50 + MainActivity.MIN_SIZE);
                     }
                 });
 
@@ -65,7 +69,6 @@ public class SettingsFragment extends DialogFragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Toast.makeText(getActivity(), "Volume Changed", Toast.LENGTH_SHORT).show();
                 volumeSlider.setProgress(progress);
-                
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {

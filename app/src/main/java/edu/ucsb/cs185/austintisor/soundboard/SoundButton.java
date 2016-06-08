@@ -21,13 +21,13 @@ public class SoundButton extends Button implements OnClickListener {
     private static final int EDIT_BUTTON_INTENT = 5;
 
     private String name;
-    private int index, color;
+    private int index, color, size = 250;
 
     private String soundFile = null;
     private int rawSound = R.raw.drum1;
     private Uri soundUri;
     private MediaPlayer mediaPlayer;
-    private boolean editing = false, raw = false;
+    private boolean editing = false;
 
     public SoundButton (Context context) {
         super(context);
@@ -43,7 +43,12 @@ public class SoundButton extends Button implements OnClickListener {
         c = context;
         setOnClickListener(this);
         mediaPlayer = MediaPlayer.create(context, rawSound); // Temporarily set to drum1
-        setDimens(250);
+        setDimens(size);
+    }
+
+    public void setSize (int s) {
+        size = s;
+        setDimens(size);
     }
 
     public void setDimens (int p) {
