@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
     private static final int PERMISSIONS_REQUEST = 2;
     private static final int NEW_BUTTON_INTENT = 3, EDIT_BUTTON_INTENT = 5;
     private static final int SELECT_BOARD = 4;
-    public static final String FILENAME_EXTRA = "filename", URI_EXTRA = "uri", NAME_EXTRA = "name", COLOR_EXTRA = "color";
+    public static final String FILENAME_EXTRA = "filename", URI_EXTRA = "uri", NAME_EXTRA = "name", COLOR_EXTRA = "color", INDEX_EXTRA = "index";
     public static final String EDIT_SOUND = "edit_filename"; // May not need this, use editing boolean instead
 
     private ImageAdapter mAdapter;
@@ -112,22 +112,7 @@ public class MainActivity extends AppCompatActivity
                 onNewButton();
                 return true;
             case R.id.action_edit_buttons:
-                TextView textView;
-                textView = (TextView) findViewById(R.id.text_mode);
-                //boolean editing = mBoard.isEditing();
-                if (editing) {
-                    item.setIcon(R.drawable.ic_menu_edit);
-                    textView.setText(R.string.play_mode);
-                    editing = false;
-                }
-                else {
-                    item.setIcon(R.drawable.ic_menu_play_clip);
-                    textView.setText(R.string.edit_mode);
-                    editing = true;
-                }
-                //mBoard.setEditing(editing);
-                mAdapter.setEditing(editing);
-                // We should tint the edit icon here
+                onEditButtons(item);
                 return true;
         }
 
@@ -171,13 +156,29 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(intent, NEW_BUTTON_INTENT);
     }
 
+    public void onEditButtons(MenuItem item) {
+        TextView textView;
+        textView = (TextView) findViewById(R.id.text_mode);
+
+        if (editing) {
+            item.setIcon(R.drawable.ic_menu_edit);
+            textView.setText(R.string.play_mode);
+            editing = false;
+        }
+        else {
+            item.setIcon(R.drawable.ic_menu_play_clip);
+            textView.setText(R.string.edit_mode);
+            editing = true;
+        }
+        mAdapter.setEditing(editing);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == NEW_BUTTON_INTENT){
             if(resultCode == RESULT_OK){
                 String filename = data.getStringExtra(FILENAME_EXTRA);
                 Uri uri = data.getParcelableExtra(URI_EXTRA);
-                //String uri = data.getStringExtra(URI_EXTRA);
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
                 String name = data.getStringExtra(NAME_EXTRA);
 
@@ -194,10 +195,9 @@ public class MainActivity extends AppCompatActivity
                 // Change the button data
                 String filename = data.getStringExtra(FILENAME_EXTRA);
                 Uri uri = data.getParcelableExtra(URI_EXTRA);
-                //String uri = data.getStringExtra(URI_EXTRA);
                 int color = data.getIntExtra(COLOR_EXTRA, NewButtonActivity.DEFAULT_COLOR);
                 String name = data.getStringExtra(NAME_EXTRA);
-                int index = 0;
+                int index = data.getIntExtra(INDEX_EXTRA, 0);
 
                 mAdapter.editButton(index, filename, uri, name, color); // We'll need to save the index for this
 

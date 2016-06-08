@@ -52,12 +52,6 @@ public class SoundButton extends Button implements OnClickListener {
         this.setHeight(p);
     }
 
-    /*
-    @Override
-    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
-    }*/
-
     @Override
     public void onClick (View v) {
         if (!editing) {
@@ -68,10 +62,11 @@ public class SoundButton extends Button implements OnClickListener {
             // Launch the new button activity to modify data
             Log.d("Sound Button", "Editing!");
             Intent intent = new Intent(c, NewButtonActivity.class);
-            //intent.putExtra(MainActivity.EDIT_INDEX, index);
-            intent.putExtra(MainActivity.EDIT_SOUND, soundFile);
-            //intent.putExtra(MainActivity.EDIT_COLOR, color);
-            //intent.putExtra(MainActivity.EDIT_NAME, name);
+            intent.putExtra(MainActivity.FILENAME_EXTRA, soundFile);
+            intent.putExtra(MainActivity.URI_EXTRA, soundUri);
+            intent.putExtra(MainActivity.COLOR_EXTRA, color);
+            intent.putExtra(MainActivity.NAME_EXTRA, name);
+            intent.putExtra(MainActivity.INDEX_EXTRA, index);
             ((Activity)c).startActivityForResult(intent, EDIT_BUTTON_INTENT);
         }
     }
@@ -166,8 +161,12 @@ public class SoundButton extends Button implements OnClickListener {
         Log.d("Editing set to", Boolean.toString(e));
     }
 
-    public boolean getEditing () {
-        return editing;
+    public void setIndex (int i) {
+        index = i;
+    }
+
+    public int getIndex () {
+        return index;
     }
 
     public void setRawSound (int r) {

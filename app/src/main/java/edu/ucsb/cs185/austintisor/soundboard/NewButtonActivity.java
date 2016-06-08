@@ -45,6 +45,7 @@ public class NewButtonActivity extends AppCompatActivity {
     private final String FOLDER = "Soundboard";
     private static String mFilename = null, mName = "";
     private Uri mFileUri;
+    private int mIndex = 0;
 
     private ImageButton mRecordButton = null;
     private MediaRecorder mRecorder = null;
@@ -70,6 +71,8 @@ public class NewButtonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_button);
 
+        getData();
+
         mRecordButton = (ImageButton) findViewById(R.id.imageButton);
         mRecordButton.setOnTouchListener(new RecordListener());
 
@@ -86,7 +89,7 @@ public class NewButtonActivity extends AppCompatActivity {
         });
 
         mColorSelectButton = (Button)findViewById(R.id.button_color_select);
-        mColorSelectButton.setBackgroundColor(DEFAULT_COLOR);
+        mColorSelectButton.setBackgroundColor(mColor);
 
         mFilenameText = (EditText)findViewById(R.id.filename_text);
     }
@@ -113,6 +116,15 @@ public class NewButtonActivity extends AppCompatActivity {
     public void onBackPressed() {
         stopPlaying();
         super.onBackPressed();
+    }
+
+    // Pass data to this activity when editing
+    public void getData () {
+        mFilename = this.getIntent().getStringExtra(MainActivity.FILENAME_EXTRA);
+        mFileUri = this.getIntent().getParcelableExtra(MainActivity.URI_EXTRA);
+        mColor = this.getIntent().getIntExtra(MainActivity.COLOR_EXTRA, DEFAULT_COLOR);
+        mName = this.getIntent().getStringExtra(MainActivity.NAME_EXTRA);
+        mIndex = this.getIntent().getIntExtra(MainActivity.INDEX_EXTRA, 0);
     }
 
     public void browseFileSystem (View v) {
@@ -261,6 +273,7 @@ public class NewButtonActivity extends AppCompatActivity {
             mName = ((EditText) findViewById(R.id.name_text)).getText().toString();
             intent.putExtra(MainActivity.NAME_EXTRA, mName);
             intent.putExtra(MainActivity.COLOR_EXTRA, mColor);
+            intent.putExtra(MainActivity.INDEX_EXTRA, mIndex);
             setResult(RESULT_OK, intent);
             finish();
         } else
@@ -269,7 +282,7 @@ public class NewButtonActivity extends AppCompatActivity {
 
     //Credit: https://github.com/xdtianyu/ColorPicker
     public void selectColor(View view) {
-        int[] colorArray = {Color.BLACK, Color.DKGRAY, Color.GRAY, Color.LTGRAY, Color.RED,  Color.YELLOW, Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA};
+        int[] colorArray = {getResources().getColor(R.color.default1), getResources().getColor(R.color.default2), getResources().getColor(R.color.default3), getResources().getColor(R.color.default4), getResources().getColor(R.color.default5), getResources().getColor(R.color.default6), getResources().getColor(R.color.default7), getResources().getColor(R.color.default8), getResources().getColor(R.color.default9), getResources().getColor(R.color.default10)};
         ColorPickerDialog colors = ColorPickerDialog.newInstance(R.string.color_picker,
                 colorArray,
                 mColor,

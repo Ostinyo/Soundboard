@@ -82,6 +82,7 @@ public class ImageAdapter extends BaseAdapter {
         soundButton.setName(buttonNames.get(position));
         soundButton.setFile(buttonFiles.get(position));
         soundButton.setUri(buttonUris.get(position));
+        soundButton.setIndex(position);
 
         // Sketchily make the default board work, this will overwrite a new board
         if (position == 0)
@@ -133,9 +134,6 @@ public class ImageAdapter extends BaseAdapter {
         buttonUris.add(uri);
         buttonNames.add(name);
         buttonColors.add(color);
-        /*List<SoundButton> soundButtons = MainActivity.mBoard.soundButtons;
-        soundButtons.add(new SoundButton(context));
-        Log.d("soundButtons size", Integer.toString(soundButtons.size()));*/
         notifyDataSetChanged();
     }
 
@@ -161,6 +159,9 @@ public class ImageAdapter extends BaseAdapter {
 
     public void editButton (int position, String filename, Uri uri, String name, int color) {
         // Replace the button in this position
-
+        buttonFiles.set(position, filename);
+        buttonUris.set(position, uri);
+        buttonNames.set(position, name);
+        buttonColors.set(position, color);
     }
 }
