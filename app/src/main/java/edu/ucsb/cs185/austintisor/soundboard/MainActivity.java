@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -187,13 +188,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onEditButtons (MenuItem item) {
-
+        TextView textView;
+        textView = (TextView) findViewById(R.id.text_mode);
         if (editing) {
-            item.setIcon(R.drawable.ic_menu_edit);
+            item.setIcon(R.drawable.ic_menu_play_clip);
+            textView.setText(R.string.play_mode);
             editing = false;
         }
         else {
-            item.setIcon(R.drawable.ic_menu_play_clip);
+            item.setIcon(R.drawable.ic_menu_edit);
+            textView.setText(R.string.edit_mode);
             editing = true;
         }
         mAdapter.setEditing(editing);

@@ -47,6 +47,6 @@
     <string name="edit_name">Give your button a name!</string>
     <string name="browse_files">Or browse existing files</string>
     <string name="sound_preview">Preview your sound here</string>
-    <string name="edit_mode">Mode: Edit. Choose the button you wish to edit</string>
+    <string name="edit_mode">Mode: Edit. Choose a button to edit</string>
     <string name="play_mode">Mode: Play</string>
 </resources>
