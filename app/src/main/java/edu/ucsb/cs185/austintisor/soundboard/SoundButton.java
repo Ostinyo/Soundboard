@@ -129,14 +129,11 @@ public class SoundButton extends Button implements OnClickListener {
                 mediaPlayer.prepare();
             }
             else if (soundUri != null) {
-                //mediaPlayer.create(c, soundUri);
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 mediaPlayer.setDataSource(c, soundUri);
                 mediaPlayer.prepare();
             } else {
-                //InputStream ins = getResources().openRawResource(rawSound);
                 mediaPlayer = MediaPlayer.create(c, rawSound);
-                //ins.close();
             }
             mediaPlayer.start();
         } catch (IOException e) {

@@ -58,6 +58,7 @@ public class NewButtonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_button);
 
+        mColor = getResources().getColor(R.color.default2);
         getData();
 
         mRecordButton = (ImageButton) findViewById(R.id.imageButton);
@@ -76,7 +77,6 @@ public class NewButtonActivity extends AppCompatActivity {
         });
 
         mColorSelectButton = (Button)findViewById(R.id.button_color_select);
-        mColor = getResources().getColor(R.color.default2);
         mColorSelectButton.setBackgroundColor(mColor);
 
         mFilenameText = (EditText)findViewById(R.id.filename_text);
